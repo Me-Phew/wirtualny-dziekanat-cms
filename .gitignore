@@ -1,0 +1,9 @@
+wirtualny-dziekanat-72543-firebase-adminsdk-giur4-c5fa9178ae.json
+
+build
+dist
+/media
+node_modules
+.DS_Store
+.env
+uploads
