@@ -26,7 +26,10 @@ export const sendAnnoucementPushNotification: CollectionBeforeValidateHook =
         tokens: [
           'du-PGrJqQX6EA1Kah0URB3:APA91bG-CuOeIoIChoom3RNJnFpmWEU7KeK1WiAKpAMUhHbWLovFpOQrEjG7gE2A1BlMFLb2qCWp7by1IPiNqcsjkcfSqKnrmnIokd9lseYh3bQyfy88vAY',
         ],
-        notification: { title: data.subject },
+        notification: {
+          title: data.subject,
+          body: data.content[0].children[0].text,
+        },
       });
 
       if (enableLogs) {
