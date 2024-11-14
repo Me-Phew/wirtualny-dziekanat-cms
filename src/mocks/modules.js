@@ -1,0 +1,1 @@
+export const getMessaging = () => null;

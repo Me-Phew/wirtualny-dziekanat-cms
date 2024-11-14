@@ -7,10 +7,28 @@ import { buildConfig } from 'payload/config';
 
 import { collections } from './collections';
 
+const mockModulePath = path.resolve(__dirname, 'mocks/modules.js')
+const fullFilePath = path.resolve(
+  __dirname,
+  'collections/Announcements/hooks/sendAnnoucementPushNotification'
+)
+
 export default buildConfig({
   admin: {
     user: collections.find((collection) => collection.slug === 'users')?.slug,
     bundler: webpackBundler(),
+    webpack: (config) => {
+      return {
+        ...config,
+        resolve: {
+          ...config.resolve,
+          alias: {
+            ...config.resolve.alias,
+            [fullFilePath]: mockModulePath
+          }
+        }
+      }
+    },
   },
   editor: slateEditor({}),
   collections: collections,
