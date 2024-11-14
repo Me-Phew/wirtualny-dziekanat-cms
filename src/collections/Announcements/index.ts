@@ -24,9 +24,6 @@ export const Announcements: CollectionConfig = {
   hooks: {
     beforeValidate: [(args) => sendAnnoucementPushNotification(args)],
   },
-  auth: {
-    verify: true,
-  },
   fields: [
     {
       name: 'subject',
