@@ -16,12 +16,12 @@ const start = async () => {
     secret: process.env.PAYLOAD_SECRET,
     express: app,
     onInit: async () => {
+      // Initialize Firebase
+      initializeApp();
+
       payload.logger.info(`Payload Admin URL: ${payload.getAdminURL()}`);
     },
   });
-
-  // Initialize Firebase
-  initializeApp();
 
   // Add your own express routes here
 

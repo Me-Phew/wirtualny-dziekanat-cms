@@ -7,11 +7,13 @@ import { buildConfig } from 'payload/config';
 
 import { collections } from './collections';
 
-const mockModulePath = path.resolve(__dirname, 'mocks/modules.js')
-const fullFilePath = path.resolve(
+const mockModulePath = path.resolve(__dirname, 'mocks/modules.js');
+const sendAnnoucementPushNotification = path.resolve(
   __dirname,
-  'collections/Announcements/hooks/sendAnnoucementPushNotification'
-)
+  'collections/Announcements/hooks/sendAnnoucementPushNotification',
+);
+
+const server = path.resolve(__dirname, 'server');
 
 export default buildConfig({
   admin: {
@@ -24,10 +26,11 @@ export default buildConfig({
           ...config.resolve,
           alias: {
             ...config.resolve.alias,
-            [fullFilePath]: mockModulePath
-          }
-        }
-      }
+            [sendAnnoucementPushNotification]: mockModulePath,
+            [server]: mockModulePath,
+          },
+        },
+      };
     },
   },
   editor: slateEditor({}),
