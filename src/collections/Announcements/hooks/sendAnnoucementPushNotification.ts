@@ -34,13 +34,13 @@ export const sendAnnoucementPushNotification: CollectionAfterChangeHook =
 
       if (enableLogs) {
         payload.logger.info(
-          `✅ Successfully sent FCM notification for '${collectionSlug}' document with ID: '${doc.id}''.`,
+          `Successfully sent FCM notification for '${collectionSlug}' document with ID: '${doc.id}''.`,
         );
       }
     } catch (error: unknown) {
       const msg = error instanceof Error ? error.message : error;
       throw new APIError(
-        `❌ Failed to send FCM notification for '${collectionSlug}' document with ID: '${doc.id}': ${msg}'.`,
+        `Failed to send FCM notification for '${collectionSlug}' document with ID: '${doc.id}': ${msg}'.`,
       );
     }
   };
