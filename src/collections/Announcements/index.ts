@@ -8,8 +8,14 @@ import { sendAnnoucementPushNotification } from './hooks/sendAnnoucementPushNoti
 export const Announcements: CollectionConfig = {
   slug: 'announcements',
   labels: {
-    plural: 'Ogłoszenia',
-    singular: 'Ogłoszenie',
+    plural: {
+      pl: 'Ogłoszenia',
+      en: 'Announcements',
+    },
+    singular: {
+      pl: 'Ogłoszenie',
+      en: 'Announcement',
+    },
   },
   admin: {
     useAsTitle: 'subject',
