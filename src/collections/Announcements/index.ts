@@ -22,7 +22,7 @@ export const Announcements: CollectionConfig = {
     delete: admins,
   },
   hooks: {
-    beforeValidate: [(args) => sendAnnoucementPushNotification(args)],
+    afterChange: [sendAnnoucementPushNotification],
   },
   fields: [
     {
