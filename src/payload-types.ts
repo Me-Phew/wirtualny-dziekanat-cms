@@ -9,18 +9,21 @@
 export interface Config {
   collections: {
     users: User;
-    pages: Page;
-    products: Product;
     images: Image;
     videos: Video;
-    'case-studies': CaseStudy;
-    'case-studies-categories': CaseStudiesCategory;
+    universities: University;
+    faculties: Faculty;
+    classrooms: Classroom;
+    coursesOfStudy: CoursesOfStudy;
+    lecturers: Lecturer;
+    studentProfilePictures: StudentProfilePicture;
+    students: Student;
+    schedules: Schedule;
+    announcements: Announcement;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
-  globals: {
-    header: Header;
-  };
+  globals: {};
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -28,20 +31,8 @@ export interface Config {
  */
 export interface User {
   id: number;
-  stripeID?: string | null;
-  skipSync?: boolean | null;
   name?: string | null;
   roles?: ('admin' | 'user')[] | null;
-  subscriptions?:
-    | {
-        stripeID?: string | null;
-        product?: (number | null) | Product;
-        status?:
-          | ('active' | 'canceled' | 'incomplete' | 'incomplete_expired' | 'past_due' | 'trialing' | 'unpaid')
-          | null;
-        id?: string | null;
-      }[]
-    | null;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -54,215 +45,6 @@ export interface User {
   loginAttempts?: number | null;
   lockUntil?: string | null;
   password: string | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "products".
- */
-export interface Product {
-  id: number;
-  name: string;
-  stripeID?: string | null;
-  skipSync?: boolean | null;
-  prices?:
-    | {
-        name: string;
-        stripeID?: string | null;
-        price: number;
-        paymentType: 'one_time' | 'recurring';
-        subscriptionIntervalType?: ('day' | 'week' | 'month' | 'year') | null;
-        subscriptionIntervalCount?: number | null;
-        trialPeriodDays?: number | null;
-        marketingNote?: string | null;
-        qualities?:
-          | {
-              text: string;
-              id?: string | null;
-            }[]
-          | null;
-        id?: string | null;
-      }[]
-    | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "pages".
- */
-export interface Page {
-  id: number;
-  title: string;
-  content?:
-    | (
-        | {
-            title: string;
-            text?: string | null;
-            image: number | Image;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'homeHero';
-          }
-        | {
-            label?: string | null;
-            title: string;
-            image?: number | Image | null;
-            description?: string | null;
-            transparentSidePanel?: boolean | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'baseHero';
-          }
-        | {
-            title: string;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'productsList';
-          }
-        | {
-            title: string;
-            image: number | Image;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'baseImageTitle';
-          }
-        | {
-            label: string;
-            steps?:
-              | {
-                  title: string;
-                  qualities: {
-                    text: string;
-                    id?: string | null;
-                  }[];
-                  id?: string | null;
-                }[]
-              | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'baseSteps';
-          }
-        | {
-            wysiwyg: {
-              [k: string]: unknown;
-            }[];
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'baseWysiwyg';
-          }
-        | {
-            hasAll?: boolean | null;
-            relatedCases?: (number | CaseStudy)[] | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'caseStudiesList';
-          }
-        | {
-            title: string;
-            info?:
-              | {
-                  infoTitle: string;
-                  infoContent: string;
-                  id?: string | null;
-                }[]
-              | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'titleInfo';
-          }
-        | {
-            image: number | Image;
-            title: string;
-            benefits?:
-              | {
-                  text: string;
-                  id?: string | null;
-                }[]
-              | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'benefitsList';
-          }
-        | {
-            title: string;
-            text?: string | null;
-            items?:
-              | {
-                  title: string;
-                  qualities?:
-                    | {
-                        text?: string | null;
-                        id?: string | null;
-                      }[]
-                    | null;
-                  id?: string | null;
-                }[]
-              | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'verticalList';
-          }
-        | {
-            title: string;
-            items?:
-              | {
-                  backgroundType: 'solid' | 'image';
-                  theme: 'dark' | 'light';
-                  height?: ('1/3' | '2/3' | '3/3') | null;
-                  image?: number | Image | null;
-                  title: string;
-                  text: string;
-                  id?: string | null;
-                }[]
-              | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'flexibleGrid';
-          }
-        | {
-            title: string;
-            text?: string | null;
-            image?: number | Image | null;
-            items?:
-              | {
-                  title?: string | null;
-                  text: string;
-                  solidBackground?: boolean | null;
-                  indent?: boolean | null;
-                  includeOrderNumber?: boolean | null;
-                  id?: string | null;
-                }[]
-              | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'baseStairs';
-          }
-        | {
-            label: string;
-            video: number | Video;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'baseVideo';
-          }
-        | {
-            label: string;
-            brands?:
-              | {
-                  brand: number | Image;
-                  height: number;
-                  id?: string | null;
-                }[]
-              | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'brandsSlider';
-          }
-      )[]
-    | null;
-  slug?: string | null;
-  updatedAt: string;
-  createdAt: string;
-  _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -284,112 +66,6 @@ export interface Image {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "case-studies".
- */
-export interface CaseStudy {
-  id: number;
-  title: string;
-  category?: (number | null) | CaseStudiesCategory;
-  image: number | Image;
-  excerpt: string;
-  content?:
-    | (
-        | {
-            label?: string | null;
-            title: string;
-            image?: number | Image | null;
-            description?: string | null;
-            transparentSidePanel?: boolean | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'baseHero';
-          }
-        | {
-            title: string;
-            image: number | Image;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'baseImageTitle';
-          }
-        | {
-            label: string;
-            steps?:
-              | {
-                  title: string;
-                  qualities: {
-                    text: string;
-                    id?: string | null;
-                  }[];
-                  id?: string | null;
-                }[]
-              | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'baseSteps';
-          }
-        | {
-            hasAll?: boolean | null;
-            relatedCases?: (number | CaseStudy)[] | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'caseStudiesList';
-          }
-        | {
-            title: string;
-            info?:
-              | {
-                  infoTitle: string;
-                  infoContent: string;
-                  id?: string | null;
-                }[]
-              | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'titleInfo';
-          }
-        | {
-            label: string;
-            title: string;
-            mainText: string;
-            secondaryText?: string | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'labelTitleContent';
-          }
-        | {
-            image: number | Image;
-            title: string;
-            benefits?:
-              | {
-                  text: string;
-                  id?: string | null;
-                }[]
-              | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'benefitsList';
-          }
-      )[]
-    | null;
-  slug?: string | null;
-  updatedAt: string;
-  createdAt: string;
-  _status?: ('draft' | 'published') | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "case-studies-categories".
- */
-export interface CaseStudiesCategory {
-  id: number;
-  name: string;
-  slug?: string | null;
-  caseStudies?: (number | CaseStudy)[] | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "videos".
  */
 export interface Video {
@@ -407,14 +83,384 @@ export interface Video {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "universities".
+ */
+export interface University {
+  id: number;
+  name: string;
+  faculties: (number | Faculty)[];
+  deanearyAddress: {
+    country: string;
+    zipCode: string;
+    city: string;
+    street: string;
+    buildingNumber: string;
+  };
+  contact: {
+    phoneNumbers: {
+      phoneNumber: string;
+      info?: string | null;
+      id?: string | null;
+    }[];
+    email: string;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "faculties".
+ */
+export interface Faculty {
+  id: number;
+  name: string;
+  university?: (number | null) | University;
+  classrooms: (number | Classroom)[];
+  coursesOfStudy: (number | CoursesOfStudy)[];
+  address: {
+    country: string;
+    zipCode: string;
+    city: string;
+    street: string;
+    buildingNumber: string;
+  };
+  contact: {
+    phoneNumbers: {
+      phoneNumber: string;
+      info?: string | null;
+      id?: string | null;
+    }[];
+    email: string;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "classrooms".
+ */
+export interface Classroom {
+  id: number;
+  faculty?: (number | null) | Faculty;
+  floorNumber: number;
+  roomNumber: string;
+  title: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "coursesOfStudy".
+ */
+export interface CoursesOfStudy {
+  id: number;
+  fieldOfStudy: string;
+  faculty?: (number | null) | Faculty;
+  schedule: number | Schedule;
+  courseType: 'fullTime' | 'partTime';
+  levelOfStudy: 'firstDegree' | 'secondDegree' | 'uniformMaster' | 'postgraduate';
+  obtainedTitle: 'engineer' | 'master' | 'doctor';
+  numberOfSemesters: number;
+  currentSemester: number;
+  startDate: string;
+  endDate?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "schedules".
+ */
+export interface Schedule {
+  id: number;
+  courseOfStudy?: (number | null) | CoursesOfStudy;
+  weekAfullTimeSchedule?: {
+    monday?:
+      | {
+          name: string;
+          lecturer: number | Lecturer;
+          form: 'lecture' | 'exercises' | 'lab';
+          startTime: string;
+          numberOfHours: number;
+          classroom?: (number | null) | Classroom;
+          isOnline: boolean;
+          endTime?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+    tuesday?:
+      | {
+          name: string;
+          lecturer: number | Lecturer;
+          form: 'lecture' | 'exercises' | 'lab';
+          startTime: string;
+          numberOfHours: number;
+          classroom?: (number | null) | Classroom;
+          isOnline: boolean;
+          endTime?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+    wednesday?:
+      | {
+          name: string;
+          lecturer: number | Lecturer;
+          form: 'lecture' | 'exercises' | 'lab';
+          startTime: string;
+          numberOfHours: number;
+          classroom?: (number | null) | Classroom;
+          isOnline: boolean;
+          endTime?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+    thursday?:
+      | {
+          name: string;
+          lecturer: number | Lecturer;
+          form: 'lecture' | 'exercises' | 'lab';
+          startTime: string;
+          numberOfHours: number;
+          classroom?: (number | null) | Classroom;
+          isOnline: boolean;
+          endTime?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+    friday?:
+      | {
+          name: string;
+          lecturer: number | Lecturer;
+          form: 'lecture' | 'exercises' | 'lab';
+          startTime: string;
+          numberOfHours: number;
+          classroom?: (number | null) | Classroom;
+          isOnline: boolean;
+          endTime?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  weekAPartTimeSchedule?: {
+    saturday?:
+      | {
+          name: string;
+          lecturer: number | Lecturer;
+          form: 'lecture' | 'exercises' | 'lab';
+          startTime: string;
+          numberOfHours: number;
+          classroom?: (number | null) | Classroom;
+          isOnline: boolean;
+          endTime?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+    sunday?:
+      | {
+          name: string;
+          lecturer: number | Lecturer;
+          form: 'lecture' | 'exercises' | 'lab';
+          startTime: string;
+          numberOfHours: number;
+          classroom?: (number | null) | Classroom;
+          isOnline: boolean;
+          endTime?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  weekBfullTimeSchedule?: {
+    monday?:
+      | {
+          name: string;
+          lecturer: number | Lecturer;
+          form: 'lecture' | 'exercises' | 'lab';
+          startTime: string;
+          numberOfHours: number;
+          classroom?: (number | null) | Classroom;
+          isOnline: boolean;
+          endTime?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+    tuesday?:
+      | {
+          name: string;
+          lecturer: number | Lecturer;
+          form: 'lecture' | 'exercises' | 'lab';
+          startTime: string;
+          numberOfHours: number;
+          classroom?: (number | null) | Classroom;
+          isOnline: boolean;
+          endTime?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+    wednesday?:
+      | {
+          name: string;
+          lecturer: number | Lecturer;
+          form: 'lecture' | 'exercises' | 'lab';
+          startTime: string;
+          numberOfHours: number;
+          classroom?: (number | null) | Classroom;
+          isOnline: boolean;
+          endTime?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+    thursday?:
+      | {
+          name: string;
+          lecturer: number | Lecturer;
+          form: 'lecture' | 'exercises' | 'lab';
+          startTime: string;
+          numberOfHours: number;
+          classroom?: (number | null) | Classroom;
+          isOnline: boolean;
+          endTime?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+    friday?:
+      | {
+          name: string;
+          lecturer: number | Lecturer;
+          form: 'lecture' | 'exercises' | 'lab';
+          startTime: string;
+          numberOfHours: number;
+          classroom?: (number | null) | Classroom;
+          isOnline: boolean;
+          endTime?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  weekBPartTimeSchedule?: {
+    saturday?:
+      | {
+          name: string;
+          lecturer: number | Lecturer;
+          form: 'lecture' | 'exercises' | 'lab';
+          startTime: string;
+          numberOfHours: number;
+          classroom?: (number | null) | Classroom;
+          isOnline: boolean;
+          endTime?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+    sunday?:
+      | {
+          name: string;
+          lecturer: number | Lecturer;
+          form: 'lecture' | 'exercises' | 'lab';
+          startTime: string;
+          numberOfHours: number;
+          classroom?: (number | null) | Classroom;
+          isOnline: boolean;
+          endTime?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "lecturers".
+ */
+export interface Lecturer {
+  id: number;
+  academicTitles: ('BSc' | 'MSc' | 'PhD' | 'DSc' | 'prof')[];
+  firstName: string;
+  middleName?: string | null;
+  familyName: string;
+  title: string;
+  profilePicture?: number | StudentProfilePicture | null;
+  address: {
+    street: string;
+    city: string;
+    zipCode: string;
+    id?: string | null;
+  }[];
+  phoneNumber: string;
+  email: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "studentProfilePictures".
+ */
+export interface StudentProfilePicture {
+  id: number;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "students".
+ */
+export interface Student {
+  id: number;
+  firstName: string;
+  middleName?: string | null;
+  familyName: string;
+  pesel: string;
+  coursesOfStudy: (number | CoursesOfStudy)[];
+  dateOfBirth?: string | null;
+  profilePicture?: number | StudentProfilePicture | null;
+  indexNumber?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  email: string;
+  resetPasswordToken?: string | null;
+  resetPasswordExpiration?: string | null;
+  salt?: string | null;
+  hash?: string | null;
+  loginAttempts?: number | null;
+  lockUntil?: string | null;
+  password: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "announcements".
+ */
+export interface Announcement {
+  id: number;
+  subject: string;
+  content: {
+    [k: string]: unknown;
+  }[];
+  priority?: ('low' | 'medium' | 'high') | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-preferences".
  */
 export interface PayloadPreference {
   id: number;
-  user: {
-    relationTo: 'users';
-    value: number | User;
-  };
+  user:
+    | {
+        relationTo: 'users';
+        value: number | User;
+      }
+    | {
+        relationTo: 'students';
+        value: number | Student;
+      };
   key?: string | null;
   value?:
     | {
@@ -438,30 +484,6 @@ export interface PayloadMigration {
   batch?: number | null;
   updatedAt: string;
   createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "header".
- */
-export interface Header {
-  id: number;
-  links?:
-    | {
-        type?: ('simple' | 'dropdown') | null;
-        label: string;
-        simpleLink?: (number | null) | Page;
-        dropdownLinks?:
-          | {
-              label: string;
-              link: number | Page;
-              id?: string | null;
-            }[]
-          | null;
-        id?: string | null;
-      }[]
-    | null;
-  updatedAt?: string | null;
-  createdAt?: string | null;
 }
 
 

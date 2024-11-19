@@ -2,21 +2,21 @@ import { CollectionConfig } from 'payload/types';
 
 import { admins } from '../../access/admins';
 
-export const Universities: CollectionConfig = {
-  slug: 'universities',
+export const Faculties: CollectionConfig = {
+  slug: 'faculties',
   labels: {
     plural: {
-      pl: 'Uczelnie',
-      en: 'Universities',
+      pl: 'Wydziały',
+      en: 'Faculties',
     },
     singular: {
-      pl: 'Uczelnia',
-      en: 'University',
+      pl: 'Wydział',
+      en: 'Faculty',
     },
   },
   admin: {
     useAsTitle: 'name',
-    defaultColumns: ['name', 'deanearyAddress'],
+    defaultColumns: ['name', 'address'],
   },
   access: {
     create: admins,
@@ -34,21 +34,45 @@ export const Universities: CollectionConfig = {
       required: true,
     },
     {
-      name: 'faculties',
+      name: 'university',
       label: {
-        pl: 'Wydziały',
-        en: 'Faculties',
+        pl: 'Uczelnia',
+        en: 'University',
       },
       type: 'relationship',
-      relationTo: 'faculties',
+      relationTo: 'universities',
+      hasMany: false,
+      admin: {
+        readOnly: true,
+      },
+    },
+    {
+      name: 'classrooms',
+      label: {
+        pl: 'Sale',
+        en: 'Classrooms',
+      },
+      type: 'relationship',
+      relationTo: 'classrooms',
       hasMany: true,
       required: true,
     },
     {
-      name: 'deanearyAddress',
+      name: 'coursesOfStudy',
       label: {
-        pl: 'Adres dziekanatu',
-        en: 'Deanery Address',
+        pl: 'Kierunki studiów',
+        en: 'Courses of study',
+      },
+      type: 'relationship',
+      relationTo: 'coursesOfStudy',
+      required: true,
+      hasMany: true,
+    },
+    {
+      name: 'address',
+      label: {
+        pl: 'Adres',
+        en: 'Address',
       },
       type: 'group',
       fields: [
@@ -133,7 +157,6 @@ export const Universities: CollectionConfig = {
                 pl: 'Numer telefonu',
                 en: 'Phone number',
               },
-
               type: 'text',
               required: true,
             },

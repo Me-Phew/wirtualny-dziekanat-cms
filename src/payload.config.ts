@@ -17,7 +17,7 @@ const server = path.resolve(__dirname, 'server');
 
 export default buildConfig({
   admin: {
-    user: collections.find((collection) => collection.slug === 'users')?.slug,
+    user: collections.find((collection) => collection.slug === 'users')!.slug,
     bundler: webpackBundler(),
     webpack: (config) => {
       return {
