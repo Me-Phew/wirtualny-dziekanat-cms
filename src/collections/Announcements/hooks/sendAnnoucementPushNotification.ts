@@ -1,6 +1,7 @@
-import type { CollectionAfterChangeHook } from 'payload/types';
-import { APIError } from 'payload/errors';
 import { getMessaging } from 'firebase-admin/messaging';
+import type { CollectionAfterChangeHook } from 'payload';
+import { APIError } from 'payload';
+import { stripHtml } from 'string-strip-html';
 
 export const sendAnnoucementPushNotification: CollectionAfterChangeHook =
   async (args) => {
@@ -28,7 +29,7 @@ export const sendAnnoucementPushNotification: CollectionAfterChangeHook =
         ],
         notification: {
           title: doc.subject,
-          body: doc.content[0].children[0].text,
+          body: stripHtml(doc.content_html).result,
         },
       });
 

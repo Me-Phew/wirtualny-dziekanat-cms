@@ -1,7 +1,7 @@
 export type academicTitles = 'BSc' | 'MSc' | 'PhD' | 'DSc' | 'prof';
 
 export const getNameWithAcademicTitles = (
-  { firstName, lastName },
+  { firstName, lastName }: { firstName: string; lastName: string },
   academicTitles: academicTitles[],
   locale: 'pl' | 'en',
 ): string => {

@@ -1,7 +1,11 @@
-import { FieldAccess } from 'payload/types';
+import { FieldAccess } from 'payload';
 
 export const adminsAndUserField: FieldAccess = ({ req: { user }, doc }) => {
-  if (user.roles.includes('admin')) {
+  if (!user) {
+    return false;
+  }
+
+  if ('roles' in user && user.roles && user.roles.includes('admin')) {
     return true;
   }
 

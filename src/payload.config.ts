@@ -1,53 +1,74 @@
-import path from 'path';
-
 import { postgresAdapter } from '@payloadcms/db-postgres';
-import { webpackBundler } from '@payloadcms/bundler-webpack';
-import { slateEditor } from '@payloadcms/richtext-slate';
-import { buildConfig } from 'payload/config';
+import {
+  HTMLConverterFeature,
+  lexicalEditor,
+} from '@payloadcms/richtext-lexical';
+import { en } from '@payloadcms/translations/languages/en';
+import { pl } from '@payloadcms/translations/languages/pl';
+import { initializeApp } from 'firebase-admin/app';
+import path from 'path';
+import { buildConfig } from 'payload';
+import sharp from 'sharp';
+import { fileURLToPath } from 'url';
 
-import { collections } from './collections';
+import { collections } from '@/collections';
 
-const mockModulePath = path.resolve(__dirname, 'mocks/modules.js');
-const sendAnnoucementPushNotification = path.resolve(
-  __dirname,
-  'collections/Announcements/hooks/sendAnnoucementPushNotification',
-);
+const filename = fileURLToPath(import.meta.url);
+const dirname = path.dirname(filename);
 
-const server = path.resolve(__dirname, 'server');
+if (!process.env.PAYLOAD_SECRET) {
+  throw new Error('Payload secret is required');
+}
 
 export default buildConfig({
   admin: {
     user: collections.find((collection) => collection.slug === 'users')!.slug,
-    bundler: webpackBundler(),
-    webpack: (config) => {
-      return {
-        ...config,
-        resolve: {
-          ...config.resolve,
-          alias: {
-            ...config.resolve.alias,
-            [sendAnnoucementPushNotification]: mockModulePath,
-            [server]: mockModulePath,
-          },
-        },
-      };
+    importMap: {
+      baseDir: path.resolve(dirname),
     },
   },
-  editor: slateEditor({}),
-  collections: collections,
-  typescript: {
-    outputFile: path.resolve(__dirname, 'payload-types.ts'),
+  routes: {
+    admin: '/',
+  },
+  onInit(payload) {
+    // Initialize Firebase
+    initializeApp();
+
+    payload.logger.info(
+      `Payload Admin URL: ${process.env.SERVER_URL}/${payload.getAdminURL()}`,
+    );
+  },
+  serverURL: process.env.SERVER_URL,
+  localization: {
+    locales: ['pl', 'en'],
+    defaultLocale: 'pl',
+  },
+  i18n: {
+    supportedLanguages: { pl, en },
   },
   graphQL: {
-    schemaOutputFile: path.resolve(__dirname, 'generated-schema.graphql'),
+    schemaOutputFile: path.resolve(dirname, 'generated-schema.graphql'),
   },
-  plugins: [],
+  collections: collections,
+  editor: lexicalEditor({
+    features: ({ defaultFeatures, rootFeatures }) => [
+      ...defaultFeatures,
+      ...rootFeatures,
+      HTMLConverterFeature(),
+    ],
+  }),
+  secret: process.env.PAYLOAD_SECRET,
+  typescript: {
+    outputFile: path.resolve(dirname, 'payload-types.ts'),
+  },
   db: postgresAdapter({
     pool: {
       connectionString: process.env.DATABASE_URI,
     },
   }),
-  telemetry: false,
+  sharp,
+  plugins: [],
+  telemetry: true,
   custom: {
     enableLogs: process.env.NODE_ENV === 'development',
   },

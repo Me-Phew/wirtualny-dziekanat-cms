@@ -1,4 +1,4 @@
-import { CollectionConfig } from 'payload/types';
+import { CollectionConfig } from 'payload';
 
 export const Videos: CollectionConfig = {
   slug: 'videos',
@@ -10,7 +10,6 @@ export const Videos: CollectionConfig = {
     group: 'Media',
   },
   upload: {
-    staticURL: '/static',
     staticDir: '../uploads/',
     mimeTypes: ['video/*'],
   },

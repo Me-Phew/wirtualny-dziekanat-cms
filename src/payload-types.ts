@@ -7,6 +7,10 @@
  */
 
 export interface Config {
+  auth: {
+    users: UserAuthOperations;
+    students: StudentAuthOperations;
+  };
   collections: {
     users: User;
     images: Image;
@@ -20,10 +24,81 @@ export interface Config {
     students: Student;
     schedules: Schedule;
     announcements: Announcement;
+    'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
+  collectionsJoins: {};
+  collectionsSelect: {
+    users: UsersSelect<false> | UsersSelect<true>;
+    images: ImagesSelect<false> | ImagesSelect<true>;
+    videos: VideosSelect<false> | VideosSelect<true>;
+    universities: UniversitiesSelect<false> | UniversitiesSelect<true>;
+    faculties: FacultiesSelect<false> | FacultiesSelect<true>;
+    classrooms: ClassroomsSelect<false> | ClassroomsSelect<true>;
+    coursesOfStudy: CoursesOfStudySelect<false> | CoursesOfStudySelect<true>;
+    lecturers: LecturersSelect<false> | LecturersSelect<true>;
+    studentProfilePictures: StudentProfilePicturesSelect<false> | StudentProfilePicturesSelect<true>;
+    students: StudentsSelect<false> | StudentsSelect<true>;
+    schedules: SchedulesSelect<false> | SchedulesSelect<true>;
+    announcements: AnnouncementsSelect<false> | AnnouncementsSelect<true>;
+    'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
+    'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
+    'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
+  };
+  db: {
+    defaultIDType: number;
+  };
   globals: {};
+  globalsSelect: {};
+  locale: 'pl' | 'en';
+  user:
+    | (User & {
+        collection: 'users';
+      })
+    | (Student & {
+        collection: 'students';
+      });
+  jobs: {
+    tasks: unknown;
+    workflows: unknown;
+  };
+}
+export interface UserAuthOperations {
+  forgotPassword: {
+    email: string;
+    password: string;
+  };
+  login: {
+    email: string;
+    password: string;
+  };
+  registerFirstUser: {
+    email: string;
+    password: string;
+  };
+  unlock: {
+    email: string;
+    password: string;
+  };
+}
+export interface StudentAuthOperations {
+  forgotPassword: {
+    email: string;
+    password: string;
+  };
+  login: {
+    email: string;
+    password: string;
+  };
+  registerFirstUser: {
+    email: string;
+    password: string;
+  };
+  unlock: {
+    email: string;
+    password: string;
+  };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -44,7 +119,7 @@ export interface User {
   _verificationToken?: string | null;
   loginAttempts?: number | null;
   lockUntil?: string | null;
-  password: string | null;
+  password?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -56,6 +131,7 @@ export interface Image {
   updatedAt: string;
   createdAt: string;
   url?: string | null;
+  thumbnailURL?: string | null;
   filename?: string | null;
   mimeType?: string | null;
   filesize?: number | null;
@@ -73,6 +149,7 @@ export interface Video {
   updatedAt: string;
   createdAt: string;
   url?: string | null;
+  thumbnailURL?: string | null;
   filename?: string | null;
   mimeType?: string | null;
   filesize?: number | null;
@@ -88,7 +165,7 @@ export interface Video {
 export interface University {
   id: number;
   name: string;
-  faculties: (number | Faculty)[];
+  faculties?: (number | Faculty)[] | null;
   deanearyAddress: {
     country: string;
     zipCode: string;
@@ -115,8 +192,8 @@ export interface Faculty {
   id: number;
   name: string;
   university?: (number | null) | University;
-  classrooms: (number | Classroom)[];
-  coursesOfStudy: (number | CoursesOfStudy)[];
+  classrooms?: (number | Classroom)[] | null;
+  coursesOfStudy?: (number | CoursesOfStudy)[] | null;
   address: {
     country: string;
     zipCode: string;
@@ -378,7 +455,7 @@ export interface Lecturer {
   middleName?: string | null;
   familyName: string;
   title: string;
-  profilePicture?: number | StudentProfilePicture | null;
+  profilePicture?: (number | null) | StudentProfilePicture;
   address: {
     street: string;
     city: string;
@@ -399,6 +476,7 @@ export interface StudentProfilePicture {
   updatedAt: string;
   createdAt: string;
   url?: string | null;
+  thumbnailURL?: string | null;
   filename?: string | null;
   mimeType?: string | null;
   filesize?: number | null;
@@ -419,7 +497,7 @@ export interface Student {
   pesel: string;
   coursesOfStudy: (number | CoursesOfStudy)[];
   dateOfBirth?: string | null;
-  profilePicture?: number | StudentProfilePicture | null;
+  profilePicture?: (number | null) | StudentProfilePicture;
   indexNumber?: string | null;
   updatedAt: string;
   createdAt: string;
@@ -430,7 +508,7 @@ export interface Student {
   hash?: string | null;
   loginAttempts?: number | null;
   lockUntil?: string | null;
-  password: string | null;
+  password?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -438,11 +516,93 @@ export interface Student {
  */
 export interface Announcement {
   id: number;
+  sender?: (number | null) | User;
   subject: string;
   content: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
     [k: string]: unknown;
-  }[];
+  };
+  content_html?: string | null;
   priority?: ('low' | 'medium' | 'high') | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-locked-documents".
+ */
+export interface PayloadLockedDocument {
+  id: number;
+  document?:
+    | ({
+        relationTo: 'users';
+        value: number | User;
+      } | null)
+    | ({
+        relationTo: 'images';
+        value: number | Image;
+      } | null)
+    | ({
+        relationTo: 'videos';
+        value: number | Video;
+      } | null)
+    | ({
+        relationTo: 'universities';
+        value: number | University;
+      } | null)
+    | ({
+        relationTo: 'faculties';
+        value: number | Faculty;
+      } | null)
+    | ({
+        relationTo: 'classrooms';
+        value: number | Classroom;
+      } | null)
+    | ({
+        relationTo: 'coursesOfStudy';
+        value: number | CoursesOfStudy;
+      } | null)
+    | ({
+        relationTo: 'lecturers';
+        value: number | Lecturer;
+      } | null)
+    | ({
+        relationTo: 'studentProfilePictures';
+        value: number | StudentProfilePicture;
+      } | null)
+    | ({
+        relationTo: 'students';
+        value: number | Student;
+      } | null)
+    | ({
+        relationTo: 'schedules';
+        value: number | Schedule;
+      } | null)
+    | ({
+        relationTo: 'announcements';
+        value: number | Announcement;
+      } | null);
+  globalSlug?: string | null;
+  user:
+    | {
+        relationTo: 'users';
+        value: number | User;
+      }
+    | {
+        relationTo: 'students';
+        value: number | Student;
+      };
   updatedAt: string;
   createdAt: string;
 }
@@ -484,6 +644,479 @@ export interface PayloadMigration {
   batch?: number | null;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "users_select".
+ */
+export interface UsersSelect<T extends boolean = true> {
+  name?: T;
+  roles?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  email?: T;
+  resetPasswordToken?: T;
+  resetPasswordExpiration?: T;
+  salt?: T;
+  hash?: T;
+  _verified?: T;
+  _verificationToken?: T;
+  loginAttempts?: T;
+  lockUntil?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "images_select".
+ */
+export interface ImagesSelect<T extends boolean = true> {
+  alt?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "videos_select".
+ */
+export interface VideosSelect<T extends boolean = true> {
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "universities_select".
+ */
+export interface UniversitiesSelect<T extends boolean = true> {
+  name?: T;
+  faculties?: T;
+  deanearyAddress?:
+    | T
+    | {
+        country?: T;
+        zipCode?: T;
+        city?: T;
+        street?: T;
+        buildingNumber?: T;
+      };
+  contact?:
+    | T
+    | {
+        phoneNumbers?:
+          | T
+          | {
+              phoneNumber?: T;
+              info?: T;
+              id?: T;
+            };
+        email?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "faculties_select".
+ */
+export interface FacultiesSelect<T extends boolean = true> {
+  name?: T;
+  university?: T;
+  classrooms?: T;
+  coursesOfStudy?: T;
+  address?:
+    | T
+    | {
+        country?: T;
+        zipCode?: T;
+        city?: T;
+        street?: T;
+        buildingNumber?: T;
+      };
+  contact?:
+    | T
+    | {
+        phoneNumbers?:
+          | T
+          | {
+              phoneNumber?: T;
+              info?: T;
+              id?: T;
+            };
+        email?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "classrooms_select".
+ */
+export interface ClassroomsSelect<T extends boolean = true> {
+  faculty?: T;
+  floorNumber?: T;
+  roomNumber?: T;
+  title?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "coursesOfStudy_select".
+ */
+export interface CoursesOfStudySelect<T extends boolean = true> {
+  fieldOfStudy?: T;
+  faculty?: T;
+  schedule?: T;
+  courseType?: T;
+  levelOfStudy?: T;
+  obtainedTitle?: T;
+  numberOfSemesters?: T;
+  currentSemester?: T;
+  startDate?: T;
+  endDate?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "lecturers_select".
+ */
+export interface LecturersSelect<T extends boolean = true> {
+  academicTitles?: T;
+  firstName?: T;
+  middleName?: T;
+  familyName?: T;
+  title?: T;
+  profilePicture?: T;
+  address?:
+    | T
+    | {
+        street?: T;
+        city?: T;
+        zipCode?: T;
+        id?: T;
+      };
+  phoneNumber?: T;
+  email?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "studentProfilePictures_select".
+ */
+export interface StudentProfilePicturesSelect<T extends boolean = true> {
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "students_select".
+ */
+export interface StudentsSelect<T extends boolean = true> {
+  firstName?: T;
+  middleName?: T;
+  familyName?: T;
+  pesel?: T;
+  coursesOfStudy?: T;
+  dateOfBirth?: T;
+  dateOfBirthNotice?: T;
+  profilePicture?: T;
+  indexNumber?: T;
+  indexNumberNotice?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  email?: T;
+  resetPasswordToken?: T;
+  resetPasswordExpiration?: T;
+  salt?: T;
+  hash?: T;
+  loginAttempts?: T;
+  lockUntil?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "schedules_select".
+ */
+export interface SchedulesSelect<T extends boolean = true> {
+  courseOfStudy?: T;
+  weekAfullTimeSchedule?:
+    | T
+    | {
+        monday?:
+          | T
+          | {
+              name?: T;
+              lecturer?: T;
+              form?: T;
+              startTime?: T;
+              numberOfHours?: T;
+              classroom?: T;
+              isOnline?: T;
+              endTime?: T;
+              id?: T;
+            };
+        tuesday?:
+          | T
+          | {
+              name?: T;
+              lecturer?: T;
+              form?: T;
+              startTime?: T;
+              numberOfHours?: T;
+              classroom?: T;
+              isOnline?: T;
+              endTime?: T;
+              id?: T;
+            };
+        wednesday?:
+          | T
+          | {
+              name?: T;
+              lecturer?: T;
+              form?: T;
+              startTime?: T;
+              numberOfHours?: T;
+              classroom?: T;
+              isOnline?: T;
+              endTime?: T;
+              id?: T;
+            };
+        thursday?:
+          | T
+          | {
+              name?: T;
+              lecturer?: T;
+              form?: T;
+              startTime?: T;
+              numberOfHours?: T;
+              classroom?: T;
+              isOnline?: T;
+              endTime?: T;
+              id?: T;
+            };
+        friday?:
+          | T
+          | {
+              name?: T;
+              lecturer?: T;
+              form?: T;
+              startTime?: T;
+              numberOfHours?: T;
+              classroom?: T;
+              isOnline?: T;
+              endTime?: T;
+              id?: T;
+            };
+      };
+  weekAPartTimeSchedule?:
+    | T
+    | {
+        saturday?:
+          | T
+          | {
+              name?: T;
+              lecturer?: T;
+              form?: T;
+              startTime?: T;
+              numberOfHours?: T;
+              classroom?: T;
+              isOnline?: T;
+              endTime?: T;
+              id?: T;
+            };
+        sunday?:
+          | T
+          | {
+              name?: T;
+              lecturer?: T;
+              form?: T;
+              startTime?: T;
+              numberOfHours?: T;
+              classroom?: T;
+              isOnline?: T;
+              endTime?: T;
+              id?: T;
+            };
+      };
+  weekBfullTimeSchedule?:
+    | T
+    | {
+        monday?:
+          | T
+          | {
+              name?: T;
+              lecturer?: T;
+              form?: T;
+              startTime?: T;
+              numberOfHours?: T;
+              classroom?: T;
+              isOnline?: T;
+              endTime?: T;
+              id?: T;
+            };
+        tuesday?:
+          | T
+          | {
+              name?: T;
+              lecturer?: T;
+              form?: T;
+              startTime?: T;
+              numberOfHours?: T;
+              classroom?: T;
+              isOnline?: T;
+              endTime?: T;
+              id?: T;
+            };
+        wednesday?:
+          | T
+          | {
+              name?: T;
+              lecturer?: T;
+              form?: T;
+              startTime?: T;
+              numberOfHours?: T;
+              classroom?: T;
+              isOnline?: T;
+              endTime?: T;
+              id?: T;
+            };
+        thursday?:
+          | T
+          | {
+              name?: T;
+              lecturer?: T;
+              form?: T;
+              startTime?: T;
+              numberOfHours?: T;
+              classroom?: T;
+              isOnline?: T;
+              endTime?: T;
+              id?: T;
+            };
+        friday?:
+          | T
+          | {
+              name?: T;
+              lecturer?: T;
+              form?: T;
+              startTime?: T;
+              numberOfHours?: T;
+              classroom?: T;
+              isOnline?: T;
+              endTime?: T;
+              id?: T;
+            };
+      };
+  weekBPartTimeSchedule?:
+    | T
+    | {
+        saturday?:
+          | T
+          | {
+              name?: T;
+              lecturer?: T;
+              form?: T;
+              startTime?: T;
+              numberOfHours?: T;
+              classroom?: T;
+              isOnline?: T;
+              endTime?: T;
+              id?: T;
+            };
+        sunday?:
+          | T
+          | {
+              name?: T;
+              lecturer?: T;
+              form?: T;
+              startTime?: T;
+              numberOfHours?: T;
+              classroom?: T;
+              isOnline?: T;
+              endTime?: T;
+              id?: T;
+            };
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "announcements_select".
+ */
+export interface AnnouncementsSelect<T extends boolean = true> {
+  sender?: T;
+  subject?: T;
+  content?: T;
+  content_html?: T;
+  priority?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-locked-documents_select".
+ */
+export interface PayloadLockedDocumentsSelect<T extends boolean = true> {
+  document?: T;
+  globalSlug?: T;
+  user?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-preferences_select".
+ */
+export interface PayloadPreferencesSelect<T extends boolean = true> {
+  user?: T;
+  key?: T;
+  value?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-migrations_select".
+ */
+export interface PayloadMigrationsSelect<T extends boolean = true> {
+  name?: T;
+  batch?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "auth".
+ */
+export interface Auth {
+  [k: string]: unknown;
 }
 
 

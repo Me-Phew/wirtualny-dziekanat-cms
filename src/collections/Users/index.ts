@@ -1,9 +1,9 @@
-import { CollectionConfig } from 'payload/types';
+import { CollectionConfig } from 'payload';
 
-import { admins } from '../../access/admins';
-import { anyone } from '../../access/anyone';
-import adminsAndUser from '../../access/adminsAndUser';
-import { checkRole } from '../../access/checkRole';
+import { admins } from '@/access/admins';
+import adminsAndUser from '@/access/adminsAndUser';
+import { anyone } from '@/access/anyone';
+import { checkRole } from '@/access/checkRole';
 import { ensureFirstUserIsAdmin } from './hooks/ensureFirstUserIsAdmin';
 
 export const Users: CollectionConfig = {

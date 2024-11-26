@@ -1,8 +1,8 @@
-import { slateEditor } from '@payloadcms/richtext-slate';
-import { CollectionConfig } from 'payload/types';
+import { lexicalHTML } from '@payloadcms/richtext-lexical';
+import { CollectionConfig } from 'payload';
 
-import { admins } from '../../access/admins';
-import { anyone } from '../../access/anyone';
+import { admins } from '@/access/admins';
+import { anyone } from '@/access/anyone';
 import { sendAnnoucementPushNotification } from './hooks/sendAnnoucementPushNotification';
 
 export const Announcements: CollectionConfig = {
@@ -32,6 +32,15 @@ export const Announcements: CollectionConfig = {
   },
   fields: [
     {
+      name: 'sender',
+      label: {
+        pl: 'Nadawca',
+        en: 'Sender',
+      },
+      type: 'relationship',
+      relationTo: 'users',
+    },
+    {
       name: 'subject',
       label: 'Temat',
       type: 'text',
@@ -41,14 +50,9 @@ export const Announcements: CollectionConfig = {
       name: 'content',
       label: 'Treść',
       type: 'richText',
-      editor: slateEditor({
-        admin: {
-          elements: ['h4', 'link', 'ol', 'ul', 'blockquote'],
-          leaves: ['bold', 'italic'],
-        },
-      }),
       required: true,
     },
+    lexicalHTML('content', { name: 'content_html' }),
     {
       name: 'priority',
       label: 'Priorytet',

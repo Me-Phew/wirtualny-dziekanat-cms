@@ -1,4 +1,4 @@
-import { Field } from 'payload/types';
+import { Field } from 'payload';
 
 import { getSingleDayScheduleSchema } from '../generators/getSingleDayScheduleSchema';
 

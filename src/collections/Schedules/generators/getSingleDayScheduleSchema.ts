@@ -1,7 +1,7 @@
-import { Field } from 'payload/types';
+import { Field } from 'payload';
 
-import { getWeekdayName } from '../../../utils/getWeekdayName';
-import { APIError } from 'payload/errors';
+import { getWeekdayName } from '@/utils/getWeekdayName';
+import { validateNumberOfHours } from '../validators';
 
 export const getSingleDayScheduleSchema = (day: string): Field => {
   return {
@@ -64,14 +64,16 @@ export const getSingleDayScheduleSchema = (day: string): Field => {
         },
         type: 'date',
         required: true,
-        // admin: {
-        //   date: {
-        //     pickerAppearance: 'timeOnly',
-        //     displayFormat: 'HH:mm',
-        //     timeFormat: 'HH:mm',
-        //     timeIntervals: 5,
-        //   },
-        // },
+        admin: {
+          date: {
+            pickerAppearance: 'timeOnly',
+            displayFormat: 'HH:mm',
+            timeFormat: 'HH:mm',
+            timeIntervals: 5,
+            minTime: new Date(new Date().setHours(8, 0, 0, 0)),
+            maxTime: new Date(new Date().setHours(20, 0, 0, 0)),
+          },
+        },
       },
       {
         name: 'numberOfHours',
@@ -87,24 +89,14 @@ export const getSingleDayScheduleSchema = (day: string): Field => {
         },
         type: 'number',
         required: true,
-        validate: (value) => {
-          if (value <= 0) {
-            return 'Liczba godzin musi być większa od zera';
-          }
-
-          return true;
-        },
+        validate: validateNumberOfHours,
         hooks: {
-          afterChange: [
-            ({ data, value, siblingData, req }) => {
-              const endTime = new Date(
+          beforeValidate: [
+            ({ data: _data, value, siblingData }) => {
+              siblingData.endTime = new Date(
                 new Date(siblingData.startTime).getTime() +
                   value * 45 * 60 * 1000,
-              ).toDateString();
-
-              siblingData.endTime = endTime;
-
-              console.log(data, siblingData);
+              ).toISOString();
             },
           ],
         },

@@ -1,16 +1,21 @@
-import { CollectionConfig } from 'payload/types';
+import { CollectionConfig } from 'payload';
 
-import { admins } from '../../access/admins';
+import { admins } from '@/access/admins';
+import { setEndDate } from './hooks/setEndDate';
+import {
+  validateCurrentSemester,
+  validateNumberOfSemesters,
+} from './validators';
 
 export const CoursesOfStudy: CollectionConfig = {
   slug: 'coursesOfStudy',
   labels: {
     plural: {
-      pl: 'Kierunki studiów',
+      pl: 'Toki studiów',
       en: 'Courses of study',
     },
     singular: {
-      pl: 'Kierunek studiów',
+      pl: 'Tok studiów',
       en: 'Course of study',
     },
   },
@@ -42,9 +47,6 @@ export const CoursesOfStudy: CollectionConfig = {
       type: 'relationship',
       relationTo: 'faculties',
       hasMany: false,
-      admin: {
-        readOnly: true,
-      },
     },
     {
       name: 'schedule',
@@ -107,13 +109,7 @@ export const CoursesOfStudy: CollectionConfig = {
       },
       type: 'number',
       required: true,
-      validate: (value) => {
-        if (value < 1) {
-          return 'Liczba semestrów nie może być mniejsza niż 1';
-        }
-
-        return true;
-      },
+      validate: validateNumberOfSemesters,
     },
     {
       name: 'currentSemester',
@@ -124,13 +120,7 @@ export const CoursesOfStudy: CollectionConfig = {
       type: 'number',
       required: true,
       defaultValue: 1,
-      validate: (value, allValues) => {
-        if (value < 1 || value > allValues.numberOfSemesters) {
-          return 'Aktualny semestr musi być większy od 0 ani mniejszy od liczby semestrów';
-        }
-
-        return true;
-      },
+      validate: validateCurrentSemester,
     },
     {
       name: 'startDate',
@@ -140,13 +130,6 @@ export const CoursesOfStudy: CollectionConfig = {
       },
       type: 'date',
       required: true,
-      validate: (value) => {
-        if (new Date(value) < new Date()) {
-          return 'Data rozpoczęcia musi być datą przyszłą';
-        }
-
-        return true;
-      },
     },
     {
       name: 'endDate',
@@ -159,16 +142,7 @@ export const CoursesOfStudy: CollectionConfig = {
         readOnly: true,
       },
       hooks: {
-        beforeChange: [
-          ({ data }) => {
-            const startDate = new Date(data.startDate);
-            const endDate = new Date(startDate);
-            endDate.setFullYear(
-              endDate.getFullYear() + data.numberOfSemesters / 2,
-            );
-            data.endDate = endDate.toISOString();
-          },
-        ],
+        beforeChange: [setEndDate],
       },
     },
   ],

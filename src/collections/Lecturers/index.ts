@@ -1,7 +1,8 @@
-import { CollectionConfig } from 'payload/types';
+import { CollectionConfig } from 'payload';
 
-import { admins } from '../../access/admins';
-import { getNameWithAcademicTitles } from './getNameWithAcademicTitles';
+import { admins } from '@/access/admins';
+import { validatePhoneNumber } from '@/global/validators';
+import { setTitle } from './hooks/setTitle';
 
 export const Lecturers: CollectionConfig = {
   slug: 'lecturers',
@@ -19,6 +20,7 @@ export const Lecturers: CollectionConfig = {
     useAsTitle: 'title',
     defaultColumns: ['title', 'email'],
   },
+  disableDuplicate: true,
   access: {
     create: admins,
     update: admins,
@@ -67,15 +69,7 @@ export const Lecturers: CollectionConfig = {
         hidden: true,
       },
       hooks: {
-        beforeChange: [
-          async ({ data }) => {
-            return getNameWithAcademicTitles(
-              { firstName: data.firstName, lastName: data.familyName },
-              data.academicTitles,
-              'pl',
-            );
-          },
-        ],
+        beforeChange: [setTitle],
       },
     },
     {
@@ -115,13 +109,7 @@ export const Lecturers: CollectionConfig = {
       label: 'Numer telefonu',
       type: 'text',
       required: true,
-      validate: (value: string) => {
-        if (!/^\d{9}$/.test(value)) {
-          return 'Numer telefonu musi składać się z 9 cyfr';
-        }
-
-        return true;
-      },
+      validate: validatePhoneNumber,
     },
     {
       name: 'email',

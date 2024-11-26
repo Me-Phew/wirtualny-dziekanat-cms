@@ -1,8 +1,9 @@
-import { CollectionConfig } from 'payload/types';
+import { CollectionConfig } from 'payload';
 
-import { admins } from '../../access/admins';
-import { adminsAndUserField } from '../../access/adminsAndUserField';
-import { parsePesel } from '../../utils/peselParser';
+import { admins } from '@/access/admins';
+import { adminsAndUserField } from '@/access/adminsAndUserField';
+import { setDateOfBirthAndIndexNumber } from './hooks/setDateOfBirthAndIndexNumber';
+import { validatePesel } from './validators';
 
 export const Students: CollectionConfig = {
   slug: 'students',
@@ -45,25 +46,9 @@ export const Students: CollectionConfig = {
       type: 'text',
       required: true,
       unique: true,
-      validate: (value) => {
-        const reg = /^[0-9]{11}$/;
-
-        if (reg.test(value)) {
-          return true;
-        }
-
-        return 'PESEL musi składać się z 11 cyfr';
-      },
+      validate: validatePesel,
       hooks: {
-        beforeValidate: [
-          ({ data, value }) => {
-            const parsedPesel = parsePesel(value);
-
-            data.dateOfBirth = parsedPesel.dateOfBirth.toDateString();
-
-            data.indexNumber = `000${data.pesel[5]}${data.pesel[7]}`;
-          },
-        ],
+        beforeValidate: [setDateOfBirthAndIndexNumber],
       },
     },
     {
@@ -80,6 +65,21 @@ export const Students: CollectionConfig = {
       type: 'date',
       admin: {
         readOnly: true,
+      },
+    },
+    {
+      name: 'dateOfBirthNotice',
+      type: 'ui',
+      admin: {
+        components: {
+          Field: {
+            path: '/components/notice-field#NoticeFieldRSC',
+            serverProps: {
+              type: 'info',
+              text: 'Data urodzenia jest generowana automatycznie na podstawie numeru PESEL i nie może być zmieniona',
+            },
+          },
+        },
       },
     },
     {
@@ -101,6 +101,21 @@ export const Students: CollectionConfig = {
       },
       admin: {
         readOnly: true,
+      },
+    },
+    {
+      name: 'indexNumberNotice',
+      type: 'ui',
+      admin: {
+        components: {
+          Field: {
+            path: '/components/notice-field#NoticeFieldRSC',
+            serverProps: {
+              type: 'info',
+              text: 'Numer indeksu jest generowany automatycznie na podstawie nr pesel i głównego toku studiów i nie może być zmieniony',
+            },
+          },
+        },
       },
     },
     {
