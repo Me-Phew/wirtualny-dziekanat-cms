@@ -50,6 +50,11 @@ export const Students: CollectionConfig = {
       hooks: {
         beforeValidate: [setDateOfBirthAndIndexNumber],
       },
+      access: {
+        create: admins,
+        read: admins,
+        update: admins,
+      },
     },
     {
       name: 'coursesOfStudy',
