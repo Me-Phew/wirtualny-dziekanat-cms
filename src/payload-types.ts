@@ -517,6 +517,12 @@ export interface Student {
 export interface Announcement {
   id: number;
   sender?: (number | null) | User;
+  recipients?:
+    | {
+        recipient?: (number | null) | User;
+        id?: string | null;
+      }[]
+    | null;
   subject: string;
   content: {
     root: {
@@ -1072,6 +1078,13 @@ export interface SchedulesSelect<T extends boolean = true> {
  */
 export interface AnnouncementsSelect<T extends boolean = true> {
   sender?: T;
+  recipients?:
+    | T
+    | {
+        recipient?: T;
+        id?: T;
+      };
+  selectRecipients?: T;
   subject?: T;
   content?: T;
   content_html?: T;

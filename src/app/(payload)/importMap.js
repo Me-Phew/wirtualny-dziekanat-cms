@@ -1,4 +1,5 @@
 import { NoticeFieldRSC as NoticeFieldRSC_2c7c0f81b6eb3adc510e36c111c2ee45 } from 'src/components/notice-field'
+import { SelectAnnouncementRecipientsRSC as SelectAnnouncementRecipientsRSC_80e022f0b53954b4f4473b8bb9e117f8 } from 'src/components/select-announcement-recipients'
 import { RscEntryLexicalCell as RscEntryLexicalCell_44fe37237e0ebf4470c9990d8cb7b07e } from '@payloadcms/richtext-lexical/rsc'
 import { RscEntryLexicalField as RscEntryLexicalField_44fe37237e0ebf4470c9990d8cb7b07e } from '@payloadcms/richtext-lexical/rsc'
 import { InlineToolbarFeatureClient as InlineToolbarFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
@@ -24,6 +25,7 @@ import { ItalicFeatureClient as ItalicFeatureClient_e70f5e05f09f93e00b997edb1ef0
 
 export const importMap = {
   "/components/notice-field#NoticeFieldRSC": NoticeFieldRSC_2c7c0f81b6eb3adc510e36c111c2ee45,
+  "/components/select-announcement-recipients#SelectAnnouncementRecipientsRSC": SelectAnnouncementRecipientsRSC_80e022f0b53954b4f4473b8bb9e117f8,
   "@payloadcms/richtext-lexical/rsc#RscEntryLexicalCell": RscEntryLexicalCell_44fe37237e0ebf4470c9990d8cb7b07e,
   "@payloadcms/richtext-lexical/rsc#RscEntryLexicalField": RscEntryLexicalField_44fe37237e0ebf4470c9990d8cb7b07e,
   "@payloadcms/richtext-lexical/client#InlineToolbarFeatureClient": InlineToolbarFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
