@@ -3,6 +3,7 @@ import { CollectionConfig } from 'payload';
 import { admins } from '@/access/admins';
 import { adminsAndUserField } from '@/access/adminsAndUserField';
 import { setDateOfBirthAndIndexNumber } from './hooks/setDateOfBirthAndIndexNumber';
+import { setUsername } from './hooks/setUsername';
 import { validatePesel } from './validators';
 
 export const Students: CollectionConfig = {
@@ -21,8 +22,40 @@ export const Students: CollectionConfig = {
     update: admins,
     delete: admins,
   },
-  auth: true,
+  auth: {
+    maxLoginAttempts: 50,
+    // loginWithUsername: {
+    //   allowEmailLogin: false,
+    //   requireUsername: true,
+    // },
+  },
+  hooks: {
+    beforeValidate: [setUsername],
+  },
   fields: [
+    {
+      name: 'username',
+      label: 'Nazwa użytkownika',
+      type: 'text',
+      admin: {
+        readOnly: true,
+      },
+    },
+    {
+      name: 'usernameNotice',
+      type: 'ui',
+      admin: {
+        components: {
+          Field: {
+            path: '/components/notice-field#NoticeFieldRSC',
+            serverProps: {
+              type: 'info',
+              text: 'Nazwa użytkownika jest generowana automatycznie i nie może być zmieniona',
+            },
+          },
+        },
+      },
+    },
     {
       name: 'firstName',
       label: 'Imię',
@@ -101,9 +134,9 @@ export const Students: CollectionConfig = {
       label: 'Numer indeksu',
       type: 'text',
       unique: true,
-      access: {
-        read: adminsAndUserField,
-      },
+      // access: {
+      //   read: adminsAndUserField,
+      // },
       admin: {
         readOnly: true,
       },

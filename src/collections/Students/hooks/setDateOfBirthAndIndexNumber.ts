@@ -3,11 +3,14 @@ import { APIError, type FieldHook } from 'payload';
 import { Faculty, Schedule, Student } from '@/payload-types';
 import { parsePesel } from '@/utils/peselParser';
 
-export const setDateOfBirthAndIndexNumber: FieldHook<Student, string> = async ({
-  data,
-  value,
-  req,
-}) => {
+export const setDateOfBirthAndIndexNumber: FieldHook<
+  Student,
+  string | undefined
+> = async ({ operation, data, value, req }) => {
+  if (operation !== 'create') {
+    return;
+  }
+
   if (!value) {
     throw new APIError('PESEL cannot be undefined here');
   }

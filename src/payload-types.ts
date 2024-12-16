@@ -491,6 +491,7 @@ export interface StudentProfilePicture {
  */
 export interface Student {
   id: number;
+  username?: string | null;
   firstName: string;
   middleName?: string | null;
   familyName: string;
@@ -839,6 +840,8 @@ export interface StudentProfilePicturesSelect<T extends boolean = true> {
  * via the `definition` "students_select".
  */
 export interface StudentsSelect<T extends boolean = true> {
+  username?: T;
+  usernameNotice?: T;
   firstName?: T;
   middleName?: T;
   familyName?: T;
