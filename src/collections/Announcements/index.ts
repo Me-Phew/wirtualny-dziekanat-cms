@@ -3,7 +3,7 @@ import { CollectionConfig } from 'payload';
 
 import { admins } from '@/access/admins';
 import { anyone } from '@/access/anyone';
-import { sendAnnoucementPushNotification } from './hooks/sendAnnoucementPushNotification';
+import { sendAnnoucementPushNotification } from './hooks/sendAnnouncementPushNotification';
 
 export const Announcements: CollectionConfig = {
   slug: 'announcements',
@@ -39,6 +39,31 @@ export const Announcements: CollectionConfig = {
       },
       type: 'relationship',
       relationTo: 'users',
+    },
+    {
+      name: 'recipients',
+      type: 'array',
+      label: {
+        pl: 'Odbiorcy',
+        en: 'Recipients',
+      },
+      fields: [
+        {
+          name: 'recipient',
+          type: 'relationship',
+          relationTo: 'users',
+        },
+      ],
+    },
+    {
+      name: 'selectRecipients',
+      type: 'ui',
+      admin: {
+        components: {
+          Field:
+            '/components/select-announcement-recipients#SelectAnnouncementRecipientsRSC',
+        },
+      },
     },
     {
       name: 'subject',

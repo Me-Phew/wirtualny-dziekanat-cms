@@ -1,5 +1,5 @@
 import { CoursesOfStudy } from '@/payload-types';
-import { APIError, NumberFieldSingleValidation } from 'payload';
+import { NumberFieldSingleValidation } from 'payload';
 
 export const validateNumberOfSemesters: NumberFieldSingleValidation = (
   value,
@@ -16,7 +16,7 @@ export const validateCurrentSemester: NumberFieldSingleValidation = (
   { data }: { data: Partial<CoursesOfStudy> },
 ) => {
   if (!data.numberOfSemesters) {
-    throw new APIError('data.numberOfSemesters should not be undefined here');
+    return 'Liczba semestrów jest wymagana';
   }
 
   if (value && (value < 1 || value > data.numberOfSemesters)) {

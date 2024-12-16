@@ -29,7 +29,7 @@ export const Schedules: CollectionConfig = {
     {
       name: 'courseOfStudy',
       label: {
-        pl: 'Kierunek studiów',
+        pl: 'Tok studiów',
         en: 'Course of study',
       },
       type: 'relationship',
