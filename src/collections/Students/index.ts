@@ -16,12 +16,12 @@ export const Students: CollectionConfig = {
     useAsTitle: 'indexNumber',
     defaultColumns: ['indexNumber', 'name', 'familyName', 'coursesOfStudy'],
   },
-  access: {
-    read: admins,
-    create: admins,
-    update: admins,
-    delete: admins,
-  },
+  // access: {
+  //   read: admins,
+  //   create: admins,
+  //   update: admins,
+  //   delete: admins,
+  // },
   auth: {
     maxLoginAttempts: 50,
     // loginWithUsername: {
@@ -61,6 +61,9 @@ export const Students: CollectionConfig = {
       label: 'Imię',
       type: 'text',
       required: true,
+      access: {
+        update: adminsAndUserField,
+      },
     },
     {
       name: 'middleName',
@@ -125,9 +128,9 @@ export const Students: CollectionConfig = {
       label: 'Zdjęcie profilowe',
       type: 'upload',
       relationTo: 'studentProfilePictures',
-      access: {
-        read: adminsAndUserField,
-      },
+      // access: {
+      //   read: adminsAndUserField,
+      // },
     },
     {
       name: 'indexNumber',
