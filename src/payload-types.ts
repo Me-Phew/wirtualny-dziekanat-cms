@@ -220,8 +220,8 @@ export interface Classroom {
   id: number;
   faculty?: (number | null) | Faculty;
   floorNumber: number;
-  roomNumber: string;
-  title: string;
+  roomNumber: number;
+  title?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -256,7 +256,17 @@ export interface Schedule {
       | {
           name: string;
           lecturer: number | Lecturer;
-          form: 'lecture' | 'exercises' | 'lab';
+          form:
+            | 'lecture'
+            | 'exercises'
+            | 'lab'
+            | 'project'
+            | 'language'
+            | 'practice'
+            | 'seminar'
+            | 'consultation'
+            | 'exam'
+            | 'other';
           startTime: string;
           /**
            * Number of 45-minute hours
@@ -272,7 +282,17 @@ export interface Schedule {
       | {
           name: string;
           lecturer: number | Lecturer;
-          form: 'lecture' | 'exercises' | 'lab';
+          form:
+            | 'lecture'
+            | 'exercises'
+            | 'lab'
+            | 'project'
+            | 'language'
+            | 'practice'
+            | 'seminar'
+            | 'consultation'
+            | 'exam'
+            | 'other';
           startTime: string;
           /**
            * Number of 45-minute hours
@@ -288,7 +308,17 @@ export interface Schedule {
       | {
           name: string;
           lecturer: number | Lecturer;
-          form: 'lecture' | 'exercises' | 'lab';
+          form:
+            | 'lecture'
+            | 'exercises'
+            | 'lab'
+            | 'project'
+            | 'language'
+            | 'practice'
+            | 'seminar'
+            | 'consultation'
+            | 'exam'
+            | 'other';
           startTime: string;
           /**
            * Number of 45-minute hours
@@ -304,7 +334,17 @@ export interface Schedule {
       | {
           name: string;
           lecturer: number | Lecturer;
-          form: 'lecture' | 'exercises' | 'lab';
+          form:
+            | 'lecture'
+            | 'exercises'
+            | 'lab'
+            | 'project'
+            | 'language'
+            | 'practice'
+            | 'seminar'
+            | 'consultation'
+            | 'exam'
+            | 'other';
           startTime: string;
           /**
            * Number of 45-minute hours
@@ -320,7 +360,17 @@ export interface Schedule {
       | {
           name: string;
           lecturer: number | Lecturer;
-          form: 'lecture' | 'exercises' | 'lab';
+          form:
+            | 'lecture'
+            | 'exercises'
+            | 'lab'
+            | 'project'
+            | 'language'
+            | 'practice'
+            | 'seminar'
+            | 'consultation'
+            | 'exam'
+            | 'other';
           startTime: string;
           /**
            * Number of 45-minute hours
@@ -338,7 +388,17 @@ export interface Schedule {
       | {
           name: string;
           lecturer: number | Lecturer;
-          form: 'lecture' | 'exercises' | 'lab';
+          form:
+            | 'lecture'
+            | 'exercises'
+            | 'lab'
+            | 'project'
+            | 'language'
+            | 'practice'
+            | 'seminar'
+            | 'consultation'
+            | 'exam'
+            | 'other';
           startTime: string;
           /**
            * Number of 45-minute hours
@@ -354,7 +414,17 @@ export interface Schedule {
       | {
           name: string;
           lecturer: number | Lecturer;
-          form: 'lecture' | 'exercises' | 'lab';
+          form:
+            | 'lecture'
+            | 'exercises'
+            | 'lab'
+            | 'project'
+            | 'language'
+            | 'practice'
+            | 'seminar'
+            | 'consultation'
+            | 'exam'
+            | 'other';
           startTime: string;
           /**
            * Number of 45-minute hours
@@ -372,7 +442,17 @@ export interface Schedule {
       | {
           name: string;
           lecturer: number | Lecturer;
-          form: 'lecture' | 'exercises' | 'lab';
+          form:
+            | 'lecture'
+            | 'exercises'
+            | 'lab'
+            | 'project'
+            | 'language'
+            | 'practice'
+            | 'seminar'
+            | 'consultation'
+            | 'exam'
+            | 'other';
           startTime: string;
           /**
            * Number of 45-minute hours
@@ -388,7 +468,17 @@ export interface Schedule {
       | {
           name: string;
           lecturer: number | Lecturer;
-          form: 'lecture' | 'exercises' | 'lab';
+          form:
+            | 'lecture'
+            | 'exercises'
+            | 'lab'
+            | 'project'
+            | 'language'
+            | 'practice'
+            | 'seminar'
+            | 'consultation'
+            | 'exam'
+            | 'other';
           startTime: string;
           /**
            * Number of 45-minute hours
@@ -404,7 +494,17 @@ export interface Schedule {
       | {
           name: string;
           lecturer: number | Lecturer;
-          form: 'lecture' | 'exercises' | 'lab';
+          form:
+            | 'lecture'
+            | 'exercises'
+            | 'lab'
+            | 'project'
+            | 'language'
+            | 'practice'
+            | 'seminar'
+            | 'consultation'
+            | 'exam'
+            | 'other';
           startTime: string;
           /**
            * Number of 45-minute hours
@@ -420,7 +520,17 @@ export interface Schedule {
       | {
           name: string;
           lecturer: number | Lecturer;
-          form: 'lecture' | 'exercises' | 'lab';
+          form:
+            | 'lecture'
+            | 'exercises'
+            | 'lab'
+            | 'project'
+            | 'language'
+            | 'practice'
+            | 'seminar'
+            | 'consultation'
+            | 'exam'
+            | 'other';
           startTime: string;
           /**
            * Number of 45-minute hours
@@ -436,7 +546,17 @@ export interface Schedule {
       | {
           name: string;
           lecturer: number | Lecturer;
-          form: 'lecture' | 'exercises' | 'lab';
+          form:
+            | 'lecture'
+            | 'exercises'
+            | 'lab'
+            | 'project'
+            | 'language'
+            | 'practice'
+            | 'seminar'
+            | 'consultation'
+            | 'exam'
+            | 'other';
           startTime: string;
           /**
            * Number of 45-minute hours
@@ -454,7 +574,17 @@ export interface Schedule {
       | {
           name: string;
           lecturer: number | Lecturer;
-          form: 'lecture' | 'exercises' | 'lab';
+          form:
+            | 'lecture'
+            | 'exercises'
+            | 'lab'
+            | 'project'
+            | 'language'
+            | 'practice'
+            | 'seminar'
+            | 'consultation'
+            | 'exam'
+            | 'other';
           startTime: string;
           /**
            * Number of 45-minute hours
@@ -470,7 +600,17 @@ export interface Schedule {
       | {
           name: string;
           lecturer: number | Lecturer;
-          form: 'lecture' | 'exercises' | 'lab';
+          form:
+            | 'lecture'
+            | 'exercises'
+            | 'lab'
+            | 'project'
+            | 'language'
+            | 'practice'
+            | 'seminar'
+            | 'consultation'
+            | 'exam'
+            | 'other';
           startTime: string;
           /**
            * Number of 45-minute hours
@@ -496,14 +636,13 @@ export interface Lecturer {
   firstName: string;
   middleName?: string | null;
   familyName: string;
-  title: string;
+  title?: string | null;
   profilePicture?: (number | null) | StudentProfilePicture;
   address: {
     street: string;
     city: string;
     zipCode: string;
-    id?: string | null;
-  }[];
+  };
   phoneNumber: string;
   email: string;
   updatedAt: string;
@@ -859,7 +998,6 @@ export interface LecturersSelect<T extends boolean = true> {
         street?: T;
         city?: T;
         zipCode?: T;
-        id?: T;
       };
   phoneNumber?: T;
   email?: T;

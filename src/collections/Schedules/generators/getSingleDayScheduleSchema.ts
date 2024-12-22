@@ -1,5 +1,6 @@
 import { Field } from 'payload';
 
+import { createTime } from '@/utils/createTime';
 import { getWeekdayName } from '@/utils/getWeekdayName';
 import { validateNumberOfHours } from '../validators';
 
@@ -53,6 +54,13 @@ export const getSingleDayScheduleSchema = (day: string): Field => {
           { label: 'Wykład', value: 'lecture' },
           { label: 'Ćwiczenia', value: 'exercises' },
           { label: 'Laboratorium', value: 'lab' },
+          { label: 'Projekt', value: 'project' },
+          { label: 'Lektorat', value: 'language' },
+          { label: 'Praktyka', value: 'practice' },
+          { label: 'Seminarium', value: 'seminar' },
+          { label: 'Konsultacje', value: 'consultation' },
+          { label: 'Egzamin', value: 'exam' },
+          { label: 'Inne', value: 'other' },
         ],
         required: true,
       },
@@ -70,8 +78,8 @@ export const getSingleDayScheduleSchema = (day: string): Field => {
             displayFormat: 'HH:mm',
             timeFormat: 'HH:mm',
             timeIntervals: 5,
-            minTime: new Date(new Date().setHours(8, 0, 0, 0)),
-            maxTime: new Date(new Date().setHours(20, 0, 0, 0)),
+            minTime: createTime({ hours: 8, minutes: 0 }),
+            maxTime: createTime({ hours: 20, minutes: 0 }),
           },
         },
       },

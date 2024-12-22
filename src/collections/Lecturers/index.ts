@@ -1,7 +1,6 @@
 import { CollectionConfig } from 'payload';
 
 import { admins } from '@/access/admins';
-import { validatePhoneNumber } from '@/global/validators';
 import { setTitle } from './hooks/setTitle';
 
 export const Lecturers: CollectionConfig = {
@@ -64,7 +63,6 @@ export const Lecturers: CollectionConfig = {
     {
       name: 'title',
       type: 'text',
-      required: true,
       admin: {
         hidden: true,
       },
@@ -81,7 +79,7 @@ export const Lecturers: CollectionConfig = {
     {
       name: 'address',
       label: 'Adres',
-      type: 'array',
+      type: 'group',
       fields: [
         {
           name: 'street',
@@ -102,14 +100,13 @@ export const Lecturers: CollectionConfig = {
           required: true,
         },
       ],
-      required: true,
     },
     {
       name: 'phoneNumber',
       label: 'Numer telefonu',
       type: 'text',
       required: true,
-      validate: validatePhoneNumber,
+      // validate: validatePhoneNumber,
     },
     {
       name: 'email',

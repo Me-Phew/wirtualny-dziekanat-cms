@@ -34,6 +34,10 @@ export default buildConfig({
     // Initialize Firebase
     initializeApp();
 
+    if (!process.env.SERVER_URL) {
+      process.env.SERVER_URL = 'http://localhost:3000';
+    }
+
     payload.logger.info(
       `Payload Admin URL: ${process.env.SERVER_URL}/${payload.getAdminURL()}`,
     );
@@ -71,5 +75,6 @@ export default buildConfig({
   telemetry: true,
   custom: {
     enableLogs: process.env.NODE_ENV === 'development',
+    dirname,
   },
 });

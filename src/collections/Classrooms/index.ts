@@ -52,13 +52,12 @@ export const Classrooms: CollectionConfig = {
         pl: 'Numer sali',
         en: 'Room number',
       },
-      type: 'text',
+      type: 'number',
       required: true,
     },
     {
       name: 'title',
       type: 'text',
-      required: true,
       admin: {
         hidden: true,
       },
