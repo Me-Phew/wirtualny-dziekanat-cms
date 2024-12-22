@@ -258,6 +258,9 @@ export interface Schedule {
           lecturer: number | Lecturer;
           form: 'lecture' | 'exercises' | 'lab';
           startTime: string;
+          /**
+           * Number of 45-minute hours
+           */
           numberOfHours: number;
           classroom?: (number | null) | Classroom;
           isOnline: boolean;
@@ -271,6 +274,9 @@ export interface Schedule {
           lecturer: number | Lecturer;
           form: 'lecture' | 'exercises' | 'lab';
           startTime: string;
+          /**
+           * Number of 45-minute hours
+           */
           numberOfHours: number;
           classroom?: (number | null) | Classroom;
           isOnline: boolean;
@@ -284,6 +290,9 @@ export interface Schedule {
           lecturer: number | Lecturer;
           form: 'lecture' | 'exercises' | 'lab';
           startTime: string;
+          /**
+           * Number of 45-minute hours
+           */
           numberOfHours: number;
           classroom?: (number | null) | Classroom;
           isOnline: boolean;
@@ -297,6 +306,9 @@ export interface Schedule {
           lecturer: number | Lecturer;
           form: 'lecture' | 'exercises' | 'lab';
           startTime: string;
+          /**
+           * Number of 45-minute hours
+           */
           numberOfHours: number;
           classroom?: (number | null) | Classroom;
           isOnline: boolean;
@@ -310,6 +322,9 @@ export interface Schedule {
           lecturer: number | Lecturer;
           form: 'lecture' | 'exercises' | 'lab';
           startTime: string;
+          /**
+           * Number of 45-minute hours
+           */
           numberOfHours: number;
           classroom?: (number | null) | Classroom;
           isOnline: boolean;
@@ -325,6 +340,9 @@ export interface Schedule {
           lecturer: number | Lecturer;
           form: 'lecture' | 'exercises' | 'lab';
           startTime: string;
+          /**
+           * Number of 45-minute hours
+           */
           numberOfHours: number;
           classroom?: (number | null) | Classroom;
           isOnline: boolean;
@@ -338,6 +356,9 @@ export interface Schedule {
           lecturer: number | Lecturer;
           form: 'lecture' | 'exercises' | 'lab';
           startTime: string;
+          /**
+           * Number of 45-minute hours
+           */
           numberOfHours: number;
           classroom?: (number | null) | Classroom;
           isOnline: boolean;
@@ -353,6 +374,9 @@ export interface Schedule {
           lecturer: number | Lecturer;
           form: 'lecture' | 'exercises' | 'lab';
           startTime: string;
+          /**
+           * Number of 45-minute hours
+           */
           numberOfHours: number;
           classroom?: (number | null) | Classroom;
           isOnline: boolean;
@@ -366,6 +390,9 @@ export interface Schedule {
           lecturer: number | Lecturer;
           form: 'lecture' | 'exercises' | 'lab';
           startTime: string;
+          /**
+           * Number of 45-minute hours
+           */
           numberOfHours: number;
           classroom?: (number | null) | Classroom;
           isOnline: boolean;
@@ -379,6 +406,9 @@ export interface Schedule {
           lecturer: number | Lecturer;
           form: 'lecture' | 'exercises' | 'lab';
           startTime: string;
+          /**
+           * Number of 45-minute hours
+           */
           numberOfHours: number;
           classroom?: (number | null) | Classroom;
           isOnline: boolean;
@@ -392,6 +422,9 @@ export interface Schedule {
           lecturer: number | Lecturer;
           form: 'lecture' | 'exercises' | 'lab';
           startTime: string;
+          /**
+           * Number of 45-minute hours
+           */
           numberOfHours: number;
           classroom?: (number | null) | Classroom;
           isOnline: boolean;
@@ -405,6 +438,9 @@ export interface Schedule {
           lecturer: number | Lecturer;
           form: 'lecture' | 'exercises' | 'lab';
           startTime: string;
+          /**
+           * Number of 45-minute hours
+           */
           numberOfHours: number;
           classroom?: (number | null) | Classroom;
           isOnline: boolean;
@@ -420,6 +456,9 @@ export interface Schedule {
           lecturer: number | Lecturer;
           form: 'lecture' | 'exercises' | 'lab';
           startTime: string;
+          /**
+           * Number of 45-minute hours
+           */
           numberOfHours: number;
           classroom?: (number | null) | Classroom;
           isOnline: boolean;
@@ -433,6 +472,9 @@ export interface Schedule {
           lecturer: number | Lecturer;
           form: 'lecture' | 'exercises' | 'lab';
           startTime: string;
+          /**
+           * Number of 45-minute hours
+           */
           numberOfHours: number;
           classroom?: (number | null) | Classroom;
           isOnline: boolean;
@@ -847,17 +889,14 @@ export interface StudentProfilePicturesSelect<T extends boolean = true> {
  */
 export interface StudentsSelect<T extends boolean = true> {
   username?: T;
-  usernameNotice?: T;
   firstName?: T;
   middleName?: T;
   familyName?: T;
   pesel?: T;
   coursesOfStudy?: T;
   dateOfBirth?: T;
-  dateOfBirthNotice?: T;
   profilePicture?: T;
   indexNumber?: T;
-  indexNumberNotice?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;
@@ -1087,7 +1126,6 @@ export interface AnnouncementsSelect<T extends boolean = true> {
         recipient?: T;
         id?: T;
       };
-  selectRecipients?: T;
   subject?: T;
   content?: T;
   content_html?: T;
