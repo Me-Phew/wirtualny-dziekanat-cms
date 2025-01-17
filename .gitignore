@@ -19,6 +19,7 @@ wirtualny-dziekanat-72543-firebase-adminsdk-giur4-e0922b0428.json
 
 # production
 /build
+dist
 
 # misc
 .DS_Store
