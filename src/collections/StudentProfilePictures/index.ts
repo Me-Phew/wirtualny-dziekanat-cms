@@ -16,6 +16,9 @@ export const StudentProfilePictures: CollectionConfig = {
   },
   access: {
     read: adminsAndUser,
+    create: adminsAndUser,
+    update: adminsAndUser,
+    delete: adminsAndUser,
   },
   fields: [],
 };
