@@ -31,14 +31,23 @@ export const Announcements: CollectionConfig = {
     afterChange: [sendAnnoucementPushNotification],
   },
   fields: [
+    // {
+    //   name: 'sender',
+    //   label: {
+    //     pl: 'Nadawca',
+    //     en: 'Sender',
+    //   },
+    //   type: 'relationship',
+    //   relationTo: 'users',
+    // },
     {
-      name: 'sender',
+      name: 'isBroadcast',
       label: {
-        pl: 'Nadawca',
-        en: 'Sender',
+        pl: 'Wyślij do wszystkich',
+        en: 'Broadcast to all',
       },
-      type: 'relationship',
-      relationTo: 'users',
+      type: 'checkbox',
+      defaultValue: true,
     },
     {
       name: 'recipients',
@@ -47,24 +56,29 @@ export const Announcements: CollectionConfig = {
         pl: 'Odbiorcy',
         en: 'Recipients',
       },
+      admin: {
+        condition: (data) => {
+          return data.isBroadcast === false;
+        },
+      },
       fields: [
         {
           name: 'recipient',
           type: 'relationship',
-          relationTo: 'users',
+          relationTo: 'students',
         },
       ],
     },
-    {
-      name: 'selectRecipients',
-      type: 'ui',
-      admin: {
-        components: {
-          Field:
-            '/components/select-announcement-recipients#SelectAnnouncementRecipientsRSC',
-        },
-      },
-    },
+    // {
+    //   name: 'selectRecipients',
+    //   type: 'ui',
+    //   admin: {
+    //     components: {
+    //       Field:
+    //         '/components/select-announcement-recipients#SelectAnnouncementRecipientsRSC',
+    //     },
+    //   },
+    // },
     {
       name: 'subject',
       label: 'Temat',

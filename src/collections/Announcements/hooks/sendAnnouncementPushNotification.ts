@@ -1,6 +1,6 @@
+import { Announcement } from '@/payload-types';
 import { getMessaging } from 'firebase-admin/messaging';
-import type { CollectionAfterChangeHook } from 'payload';
-import { APIError } from 'payload';
+import { APIError, type CollectionAfterChangeHook } from 'payload';
 import { stripHtml } from 'string-strip-html';
 
 export const sendAnnoucementPushNotification: CollectionAfterChangeHook =
@@ -22,14 +22,92 @@ export const sendAnnoucementPushNotification: CollectionAfterChangeHook =
       );
     }
 
+    let students;
+
+    if (doc.isBroadcast) {
+      students = await payload.find({
+        collection: 'students',
+        select: {
+          fcmTokens: true,
+        },
+      });
+    } else {
+      const recipients = doc.recipients as Announcement['recipients'];
+      const recipientIds = recipients?.map((recipient) => recipient.recipient);
+
+      if (!recipientIds?.length) {
+        if (enableLogs) {
+          payload.logger.info(
+            `No recipients found in the '${collectionSlug}' document with ID: '${doc.id}'. Skipping FCM notification.`,
+          );
+        }
+
+        return;
+      }
+
+      students = await payload.find({
+        collection: 'students',
+        where: {
+          id: {
+            in: recipientIds,
+          },
+        },
+        select: {
+          fcmTokens: true,
+        },
+      });
+    }
+
+    if (!students?.docs.length) {
+      if (enableLogs) {
+        payload.logger.info(
+          `No students found in the 'students' collection. Skipping FCM notification for '${collectionSlug}' document with ID: '${doc.id}'.`,
+        );
+      }
+
+      return;
+    }
+
+    const fcmTokens = students.docs
+      .map((student) => student.fcmTokens?.map((token) => token.token))
+      .flat()
+      .filter((token) => token !== undefined);
+
+    if (!fcmTokens || !fcmTokens.length) {
+      if (enableLogs) {
+        payload.logger.info(
+          `No FCM tokens found in the 'students' collection. Skipping FCM notification for '${collectionSlug}' document with ID: '${doc.id}'.`,
+        );
+      }
+      return;
+    }
+
+    console.log(doc.priority);
+
     try {
       getMessaging().sendEachForMulticast({
-        tokens: [
-          'du-PGrJqQX6EA1Kah0URB3:APA91bG-CuOeIoIChoom3RNJnFpmWEU7KeK1WiAKpAMUhHbWLovFpOQrEjG7gE2A1BlMFLb2qCWp7by1IPiNqcsjkcfSqKnrmnIokd9lseYh3bQyfy88vAY',
-        ],
+        tokens: fcmTokens,
         notification: {
           title: doc.subject,
           body: stripHtml(doc.content_html).result,
+        },
+        data: {
+          type: 'announcement',
+          id: doc.id.toString(),
+        },
+        android: {
+          priority: doc.priority === 'high' ? 'high' : 'normal',
+          notification: {
+            clickAction: 'FLUTTER_NOTIFICATION_CLICK',
+          },
+        },
+        apns: {
+          headers: {
+            'apns-priority': doc.priority === 'high' ? '10' : '5',
+          },
+        },
+        fcmOptions: {
+          analyticsLabel: 'announcement',
         },
       });
 

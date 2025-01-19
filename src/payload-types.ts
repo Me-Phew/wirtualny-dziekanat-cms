@@ -677,10 +677,17 @@ export interface Student {
   middleName?: string | null;
   familyName: string;
   pesel: string;
+  title?: string | null;
   coursesOfStudy: (number | CoursesOfStudy)[];
   dateOfBirth?: string | null;
   profilePicture?: (number | null) | StudentProfilePicture;
   indexNumber?: string | null;
+  fcmTokens?:
+    | {
+        token: string;
+        id?: string | null;
+      }[]
+    | null;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -698,10 +705,10 @@ export interface Student {
  */
 export interface Announcement {
   id: number;
-  sender?: (number | null) | User;
+  isBroadcast?: boolean | null;
   recipients?:
     | {
-        recipient?: (number | null) | User;
+        recipient?: (number | null) | Student;
         id?: string | null;
       }[]
     | null;
@@ -1031,10 +1038,17 @@ export interface StudentsSelect<T extends boolean = true> {
   middleName?: T;
   familyName?: T;
   pesel?: T;
+  title?: T;
   coursesOfStudy?: T;
   dateOfBirth?: T;
   profilePicture?: T;
   indexNumber?: T;
+  fcmTokens?:
+    | T
+    | {
+        token?: T;
+        id?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
   email?: T;
@@ -1257,7 +1271,7 @@ export interface SchedulesSelect<T extends boolean = true> {
  * via the `definition` "announcements_select".
  */
 export interface AnnouncementsSelect<T extends boolean = true> {
-  sender?: T;
+  isBroadcast?: T;
   recipients?:
     | T
     | {

@@ -1,8 +1,11 @@
+import { StatusCodes as HttpStatusCodes } from 'http-status-codes';
 import { CollectionConfig } from 'payload';
 
 import { admins } from '@/access/admins';
 import { adminsAndUserField } from '@/access/adminsAndUserField';
+import { addDataAndFileToRequest } from 'payload';
 import { setDateOfBirthAndIndexNumber } from './hooks/setDateOfBirthAndIndexNumber';
+import { setTitle } from './hooks/setTitle';
 import { setUsername } from './hooks/setUsername';
 import { validatePesel } from './validators';
 
@@ -13,8 +16,8 @@ export const Students: CollectionConfig = {
     singular: 'Student',
   },
   admin: {
-    useAsTitle: 'indexNumber',
-    defaultColumns: ['indexNumber', 'name', 'familyName', 'coursesOfStudy'],
+    useAsTitle: 'title',
+    defaultColumns: ['title', 'indexNumber'],
   },
   // access: {
   //   read: admins,
@@ -32,6 +35,56 @@ export const Students: CollectionConfig = {
   hooks: {
     beforeValidate: [setUsername],
   },
+  endpoints: [
+    {
+      path: '/:id/fcm-tokens',
+      method: 'post',
+      handler: async (req) => {
+        await addDataAndFileToRequest(req);
+
+        const fcmToken = req.data?.fcmToken;
+
+        if (!fcmToken) {
+          return Response.json({
+            message: 'FCM token is required',
+            status: HttpStatusCodes.BAD_REQUEST,
+          });
+        }
+
+        const id = req.routeParams!.id as string;
+
+        const student = await req.payload.findByID({
+          collection: 'students',
+          id,
+          select: {
+            fcmTokens: true,
+          },
+        });
+
+        if (!student) {
+          return Response.json({
+            message: 'User not found',
+            status: HttpStatusCodes.NOT_FOUND,
+          });
+        }
+
+        const existingTokens = student.fcmTokens ? student.fcmTokens : [];
+
+        await req.payload.update({
+          collection: 'students',
+          id,
+          data: {
+            fcmTokens: [...existingTokens, { token: fcmToken }],
+          },
+        });
+
+        return Response.json({
+          message: 'FCM token added',
+          status: HttpStatusCodes.OK,
+        });
+      },
+    },
+  ],
   fields: [
     {
       name: 'username',
@@ -90,6 +143,16 @@ export const Students: CollectionConfig = {
         create: admins,
         read: admins,
         update: admins,
+      },
+    },
+    {
+      name: 'title',
+      type: 'text',
+      admin: {
+        hidden: true,
+      },
+      hooks: {
+        beforeChange: [setTitle],
       },
     },
     {
@@ -168,6 +231,21 @@ export const Students: CollectionConfig = {
       access: {
         read: adminsAndUserField,
       },
+    },
+    {
+      name: 'fcmTokens',
+      type: 'array',
+      label: 'FCM Tokens',
+      admin: {
+        readOnly: true,
+      },
+      fields: [
+        {
+          name: 'token',
+          type: 'text',
+          required: true,
+        },
+      ],
     },
   ],
   timestamps: true,

@@ -1,4 +1,4 @@
-import { MigrateDownArgs, MigrateUpArgs, sql } from '@payloadcms/db-postgres';
+import { MigrateUpArgs, MigrateDownArgs, sql } from '@payloadcms/db-postgres'
 
 export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   await db.execute(sql`
@@ -201,6 +201,13 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"focal_y" numeric
   );
   
+  CREATE TABLE IF NOT EXISTS "students_fcm_tokens" (
+  	"_order" integer NOT NULL,
+  	"_parent_id" integer NOT NULL,
+  	"id" varchar PRIMARY KEY NOT NULL,
+  	"token" varchar
+  );
+  
   CREATE TABLE IF NOT EXISTS "students" (
   	"id" serial PRIMARY KEY NOT NULL,
   	"username" varchar,
@@ -208,6 +215,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"middle_name" varchar,
   	"family_name" varchar NOT NULL,
   	"pesel" varchar NOT NULL,
+  	"title" varchar,
   	"date_of_birth" timestamp(3) with time zone,
   	"profile_picture_id" integer,
   	"index_number" varchar,
@@ -442,7 +450,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   
   CREATE TABLE IF NOT EXISTS "announcements" (
   	"id" serial PRIMARY KEY NOT NULL,
-  	"sender_id" integer,
+  	"is_broadcast" boolean DEFAULT true,
   	"subject" varchar NOT NULL,
   	"content" jsonb NOT NULL,
   	"content_html" varchar,
@@ -582,6 +590,12 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   
   DO $$ BEGIN
    ALTER TABLE "lecturers" ADD CONSTRAINT "lecturers_profile_picture_id_student_profile_pictures_id_fk" FOREIGN KEY ("profile_picture_id") REFERENCES "public"."student_profile_pictures"("id") ON DELETE set null ON UPDATE no action;
+  EXCEPTION
+   WHEN duplicate_object THEN null;
+  END $$;
+  
+  DO $$ BEGIN
+   ALTER TABLE "students_fcm_tokens" ADD CONSTRAINT "students_fcm_tokens_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."students"("id") ON DELETE cascade ON UPDATE no action;
   EXCEPTION
    WHEN duplicate_object THEN null;
   END $$;
@@ -863,19 +877,13 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   END $$;
   
   DO $$ BEGIN
-   ALTER TABLE "announcements_recipients" ADD CONSTRAINT "announcements_recipients_recipient_id_users_id_fk" FOREIGN KEY ("recipient_id") REFERENCES "public"."users"("id") ON DELETE set null ON UPDATE no action;
+   ALTER TABLE "announcements_recipients" ADD CONSTRAINT "announcements_recipients_recipient_id_students_id_fk" FOREIGN KEY ("recipient_id") REFERENCES "public"."students"("id") ON DELETE set null ON UPDATE no action;
   EXCEPTION
    WHEN duplicate_object THEN null;
   END $$;
   
   DO $$ BEGIN
    ALTER TABLE "announcements_recipients" ADD CONSTRAINT "announcements_recipients_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."announcements"("id") ON DELETE cascade ON UPDATE no action;
-  EXCEPTION
-   WHEN duplicate_object THEN null;
-  END $$;
-  
-  DO $$ BEGIN
-   ALTER TABLE "announcements" ADD CONSTRAINT "announcements_sender_id_users_id_fk" FOREIGN KEY ("sender_id") REFERENCES "public"."users"("id") ON DELETE set null ON UPDATE no action;
   EXCEPTION
    WHEN duplicate_object THEN null;
   END $$;
@@ -1021,6 +1029,8 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE INDEX IF NOT EXISTS "student_profile_pictures_updated_at_idx" ON "student_profile_pictures" USING btree ("updated_at");
   CREATE INDEX IF NOT EXISTS "student_profile_pictures_created_at_idx" ON "student_profile_pictures" USING btree ("created_at");
   CREATE UNIQUE INDEX IF NOT EXISTS "student_profile_pictures_filename_idx" ON "student_profile_pictures" USING btree ("filename");
+  CREATE INDEX IF NOT EXISTS "students_fcm_tokens_order_idx" ON "students_fcm_tokens" USING btree ("_order");
+  CREATE INDEX IF NOT EXISTS "students_fcm_tokens_parent_id_idx" ON "students_fcm_tokens" USING btree ("_parent_id");
   CREATE UNIQUE INDEX IF NOT EXISTS "students_pesel_idx" ON "students" USING btree ("pesel");
   CREATE INDEX IF NOT EXISTS "students_profile_picture_idx" ON "students" USING btree ("profile_picture_id");
   CREATE UNIQUE INDEX IF NOT EXISTS "students_index_number_idx" ON "students" USING btree ("index_number");
@@ -1093,7 +1103,6 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE INDEX IF NOT EXISTS "announcements_recipients_order_idx" ON "announcements_recipients" USING btree ("_order");
   CREATE INDEX IF NOT EXISTS "announcements_recipients_parent_id_idx" ON "announcements_recipients" USING btree ("_parent_id");
   CREATE INDEX IF NOT EXISTS "announcements_recipients_recipient_idx" ON "announcements_recipients" USING btree ("recipient_id");
-  CREATE INDEX IF NOT EXISTS "announcements_sender_idx" ON "announcements" USING btree ("sender_id");
   CREATE INDEX IF NOT EXISTS "announcements_updated_at_idx" ON "announcements" USING btree ("updated_at");
   CREATE INDEX IF NOT EXISTS "announcements_created_at_idx" ON "announcements" USING btree ("created_at");
   CREATE INDEX IF NOT EXISTS "payload_locked_documents_global_slug_idx" ON "payload_locked_documents" USING btree ("global_slug");
@@ -1123,14 +1132,10 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE INDEX IF NOT EXISTS "payload_preferences_rels_users_id_idx" ON "payload_preferences_rels" USING btree ("users_id");
   CREATE INDEX IF NOT EXISTS "payload_preferences_rels_students_id_idx" ON "payload_preferences_rels" USING btree ("students_id");
   CREATE INDEX IF NOT EXISTS "payload_migrations_updated_at_idx" ON "payload_migrations" USING btree ("updated_at");
-  CREATE INDEX IF NOT EXISTS "payload_migrations_created_at_idx" ON "payload_migrations" USING btree ("created_at");`);
+  CREATE INDEX IF NOT EXISTS "payload_migrations_created_at_idx" ON "payload_migrations" USING btree ("created_at");`)
 }
 
-export async function down({
-  db,
-  payload,
-  req,
-}: MigrateDownArgs): Promise<void> {
+export async function down({ db, payload, req }: MigrateDownArgs): Promise<void> {
   await db.execute(sql`
    DROP TABLE "users_roles" CASCADE;
   DROP TABLE "users" CASCADE;
@@ -1147,6 +1152,7 @@ export async function down({
   DROP TABLE "lecturers_academic_titles" CASCADE;
   DROP TABLE "lecturers" CASCADE;
   DROP TABLE "student_profile_pictures" CASCADE;
+  DROP TABLE "students_fcm_tokens" CASCADE;
   DROP TABLE "students" CASCADE;
   DROP TABLE "students_rels" CASCADE;
   DROP TABLE "schedules_week_afull_time_schedule_monday" CASCADE;
@@ -1191,5 +1197,5 @@ export async function down({
   DROP TYPE "public"."enum_schedules_week_bfull_time_schedule_friday_form";
   DROP TYPE "public"."enum_schedules_week_b_part_time_schedule_saturday_form";
   DROP TYPE "public"."enum_schedules_week_b_part_time_schedule_sunday_form";
-  DROP TYPE "public"."enum_announcements_priority";`);
+  DROP TYPE "public"."enum_announcements_priority";`)
 }

@@ -1,5 +1,5 @@
 {
-  "id": "77bd26de-20ad-4b75-a6dc-6fc4d4405896",
+  "id": "c62ea84b-6c9d-449e-820c-24a0e1ab1bad",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -71,8 +71,12 @@
           "name": "users_roles_parent_fk",
           "tableFrom": "users_roles",
           "tableTo": "users",
-          "columnsFrom": ["parent_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "parent_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -567,8 +571,12 @@
           "name": "universities_contact_phone_numbers_parent_id_fk",
           "tableFrom": "universities_contact_phone_numbers",
           "tableTo": "universities",
-          "columnsFrom": ["_parent_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "_parent_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -788,8 +796,12 @@
           "name": "universities_rels_parent_fk",
           "tableFrom": "universities_rels",
           "tableTo": "universities",
-          "columnsFrom": ["parent_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "parent_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
@@ -797,8 +809,12 @@
           "name": "universities_rels_faculties_fk",
           "tableFrom": "universities_rels",
           "tableTo": "faculties",
-          "columnsFrom": ["faculties_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "faculties_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -881,8 +897,12 @@
           "name": "faculties_contact_phone_numbers_parent_id_fk",
           "tableFrom": "faculties_contact_phone_numbers",
           "tableTo": "faculties",
-          "columnsFrom": ["_parent_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "_parent_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -1019,8 +1039,12 @@
           "name": "faculties_university_id_universities_id_fk",
           "tableFrom": "faculties",
           "tableTo": "universities",
-          "columnsFrom": ["university_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "university_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "set null",
           "onUpdate": "no action"
         }
@@ -1154,8 +1178,12 @@
           "name": "faculties_rels_parent_fk",
           "tableFrom": "faculties_rels",
           "tableTo": "faculties",
-          "columnsFrom": ["parent_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "parent_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
@@ -1163,8 +1191,12 @@
           "name": "faculties_rels_classrooms_fk",
           "tableFrom": "faculties_rels",
           "tableTo": "classrooms",
-          "columnsFrom": ["classrooms_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "classrooms_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
@@ -1172,8 +1204,12 @@
           "name": "faculties_rels_courses_of_study_fk",
           "tableFrom": "faculties_rels",
           "tableTo": "courses_of_study",
-          "columnsFrom": ["courses_of_study_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "courses_of_study_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -1285,8 +1321,12 @@
           "name": "classrooms_faculty_id_faculties_id_fk",
           "tableFrom": "classrooms",
           "tableTo": "faculties",
-          "columnsFrom": ["faculty_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "faculty_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "set null",
           "onUpdate": "no action"
         }
@@ -1453,8 +1493,12 @@
           "name": "courses_of_study_faculty_id_faculties_id_fk",
           "tableFrom": "courses_of_study",
           "tableTo": "faculties",
-          "columnsFrom": ["faculty_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "faculty_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "set null",
           "onUpdate": "no action"
         },
@@ -1462,8 +1506,12 @@
           "name": "courses_of_study_schedule_id_schedules_id_fk",
           "tableFrom": "courses_of_study",
           "tableTo": "schedules",
-          "columnsFrom": ["schedule_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "schedule_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "set null",
           "onUpdate": "no action"
         }
@@ -1541,8 +1589,12 @@
           "name": "lecturers_academic_titles_parent_fk",
           "tableFrom": "lecturers_academic_titles",
           "tableTo": "lecturers",
-          "columnsFrom": ["parent_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "parent_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -1705,8 +1757,12 @@
           "name": "lecturers_profile_picture_id_student_profile_pictures_id_fk",
           "tableFrom": "lecturers",
           "tableTo": "student_profile_pictures",
-          "columnsFrom": ["profile_picture_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "profile_picture_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "set null",
           "onUpdate": "no action"
         }
@@ -1850,6 +1906,88 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
+    "public.students_fcm_tokens": {
+      "name": "students_fcm_tokens",
+      "schema": "",
+      "columns": {
+        "_order": {
+          "name": "_order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "_parent_id": {
+          "name": "_parent_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "id": {
+          "name": "id",
+          "type": "varchar",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "token": {
+          "name": "token",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {
+        "students_fcm_tokens_order_idx": {
+          "name": "students_fcm_tokens_order_idx",
+          "columns": [
+            {
+              "expression": "_order",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "students_fcm_tokens_parent_id_idx": {
+          "name": "students_fcm_tokens_parent_id_idx",
+          "columns": [
+            {
+              "expression": "_parent_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "students_fcm_tokens_parent_id_fk": {
+          "name": "students_fcm_tokens_parent_id_fk",
+          "tableFrom": "students_fcm_tokens",
+          "tableTo": "students",
+          "columnsFrom": [
+            "_parent_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
     "public.students": {
       "name": "students",
       "schema": "",
@@ -1889,6 +2027,12 @@
           "type": "varchar",
           "primaryKey": false,
           "notNull": true
+        },
+        "title": {
+          "name": "title",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
         },
         "date_of_birth": {
           "name": "date_of_birth",
@@ -2063,8 +2207,12 @@
           "name": "students_profile_picture_id_student_profile_pictures_id_fk",
           "tableFrom": "students",
           "tableTo": "student_profile_pictures",
-          "columnsFrom": ["profile_picture_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "profile_picture_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "set null",
           "onUpdate": "no action"
         }
@@ -2177,8 +2325,12 @@
           "name": "students_rels_parent_fk",
           "tableFrom": "students_rels",
           "tableTo": "students",
-          "columnsFrom": ["parent_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "parent_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
@@ -2186,8 +2338,12 @@
           "name": "students_rels_courses_of_study_fk",
           "tableFrom": "students_rels",
           "tableTo": "courses_of_study",
-          "columnsFrom": ["courses_of_study_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "courses_of_study_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -2338,8 +2494,12 @@
           "name": "schedules_week_afull_time_schedule_monday_lecturer_id_lecturers_id_fk",
           "tableFrom": "schedules_week_afull_time_schedule_monday",
           "tableTo": "lecturers",
-          "columnsFrom": ["lecturer_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "lecturer_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "set null",
           "onUpdate": "no action"
         },
@@ -2347,8 +2507,12 @@
           "name": "schedules_week_afull_time_schedule_monday_classroom_id_classrooms_id_fk",
           "tableFrom": "schedules_week_afull_time_schedule_monday",
           "tableTo": "classrooms",
-          "columnsFrom": ["classroom_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "classroom_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "set null",
           "onUpdate": "no action"
         },
@@ -2356,8 +2520,12 @@
           "name": "schedules_week_afull_time_schedule_monday_parent_id_fk",
           "tableFrom": "schedules_week_afull_time_schedule_monday",
           "tableTo": "schedules",
-          "columnsFrom": ["_parent_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "_parent_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -2508,8 +2676,12 @@
           "name": "schedules_week_afull_time_schedule_tuesday_lecturer_id_lecturers_id_fk",
           "tableFrom": "schedules_week_afull_time_schedule_tuesday",
           "tableTo": "lecturers",
-          "columnsFrom": ["lecturer_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "lecturer_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "set null",
           "onUpdate": "no action"
         },
@@ -2517,8 +2689,12 @@
           "name": "schedules_week_afull_time_schedule_tuesday_classroom_id_classrooms_id_fk",
           "tableFrom": "schedules_week_afull_time_schedule_tuesday",
           "tableTo": "classrooms",
-          "columnsFrom": ["classroom_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "classroom_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "set null",
           "onUpdate": "no action"
         },
@@ -2526,8 +2702,12 @@
           "name": "schedules_week_afull_time_schedule_tuesday_parent_id_fk",
           "tableFrom": "schedules_week_afull_time_schedule_tuesday",
           "tableTo": "schedules",
-          "columnsFrom": ["_parent_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "_parent_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -2678,8 +2858,12 @@
           "name": "schedules_week_afull_time_schedule_wednesday_lecturer_id_lecturers_id_fk",
           "tableFrom": "schedules_week_afull_time_schedule_wednesday",
           "tableTo": "lecturers",
-          "columnsFrom": ["lecturer_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "lecturer_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "set null",
           "onUpdate": "no action"
         },
@@ -2687,8 +2871,12 @@
           "name": "schedules_week_afull_time_schedule_wednesday_classroom_id_classrooms_id_fk",
           "tableFrom": "schedules_week_afull_time_schedule_wednesday",
           "tableTo": "classrooms",
-          "columnsFrom": ["classroom_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "classroom_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "set null",
           "onUpdate": "no action"
         },
@@ -2696,8 +2884,12 @@
           "name": "schedules_week_afull_time_schedule_wednesday_parent_id_fk",
           "tableFrom": "schedules_week_afull_time_schedule_wednesday",
           "tableTo": "schedules",
-          "columnsFrom": ["_parent_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "_parent_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -2848,8 +3040,12 @@
           "name": "schedules_week_afull_time_schedule_thursday_lecturer_id_lecturers_id_fk",
           "tableFrom": "schedules_week_afull_time_schedule_thursday",
           "tableTo": "lecturers",
-          "columnsFrom": ["lecturer_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "lecturer_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "set null",
           "onUpdate": "no action"
         },
@@ -2857,8 +3053,12 @@
           "name": "schedules_week_afull_time_schedule_thursday_classroom_id_classrooms_id_fk",
           "tableFrom": "schedules_week_afull_time_schedule_thursday",
           "tableTo": "classrooms",
-          "columnsFrom": ["classroom_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "classroom_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "set null",
           "onUpdate": "no action"
         },
@@ -2866,8 +3066,12 @@
           "name": "schedules_week_afull_time_schedule_thursday_parent_id_fk",
           "tableFrom": "schedules_week_afull_time_schedule_thursday",
           "tableTo": "schedules",
-          "columnsFrom": ["_parent_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "_parent_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -3018,8 +3222,12 @@
           "name": "schedules_week_afull_time_schedule_friday_lecturer_id_lecturers_id_fk",
           "tableFrom": "schedules_week_afull_time_schedule_friday",
           "tableTo": "lecturers",
-          "columnsFrom": ["lecturer_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "lecturer_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "set null",
           "onUpdate": "no action"
         },
@@ -3027,8 +3235,12 @@
           "name": "schedules_week_afull_time_schedule_friday_classroom_id_classrooms_id_fk",
           "tableFrom": "schedules_week_afull_time_schedule_friday",
           "tableTo": "classrooms",
-          "columnsFrom": ["classroom_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "classroom_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "set null",
           "onUpdate": "no action"
         },
@@ -3036,8 +3248,12 @@
           "name": "schedules_week_afull_time_schedule_friday_parent_id_fk",
           "tableFrom": "schedules_week_afull_time_schedule_friday",
           "tableTo": "schedules",
-          "columnsFrom": ["_parent_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "_parent_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -3188,8 +3404,12 @@
           "name": "schedules_week_a_part_time_schedule_saturday_lecturer_id_lecturers_id_fk",
           "tableFrom": "schedules_week_a_part_time_schedule_saturday",
           "tableTo": "lecturers",
-          "columnsFrom": ["lecturer_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "lecturer_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "set null",
           "onUpdate": "no action"
         },
@@ -3197,8 +3417,12 @@
           "name": "schedules_week_a_part_time_schedule_saturday_classroom_id_classrooms_id_fk",
           "tableFrom": "schedules_week_a_part_time_schedule_saturday",
           "tableTo": "classrooms",
-          "columnsFrom": ["classroom_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "classroom_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "set null",
           "onUpdate": "no action"
         },
@@ -3206,8 +3430,12 @@
           "name": "schedules_week_a_part_time_schedule_saturday_parent_id_fk",
           "tableFrom": "schedules_week_a_part_time_schedule_saturday",
           "tableTo": "schedules",
-          "columnsFrom": ["_parent_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "_parent_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -3358,8 +3586,12 @@
           "name": "schedules_week_a_part_time_schedule_sunday_lecturer_id_lecturers_id_fk",
           "tableFrom": "schedules_week_a_part_time_schedule_sunday",
           "tableTo": "lecturers",
-          "columnsFrom": ["lecturer_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "lecturer_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "set null",
           "onUpdate": "no action"
         },
@@ -3367,8 +3599,12 @@
           "name": "schedules_week_a_part_time_schedule_sunday_classroom_id_classrooms_id_fk",
           "tableFrom": "schedules_week_a_part_time_schedule_sunday",
           "tableTo": "classrooms",
-          "columnsFrom": ["classroom_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "classroom_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "set null",
           "onUpdate": "no action"
         },
@@ -3376,8 +3612,12 @@
           "name": "schedules_week_a_part_time_schedule_sunday_parent_id_fk",
           "tableFrom": "schedules_week_a_part_time_schedule_sunday",
           "tableTo": "schedules",
-          "columnsFrom": ["_parent_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "_parent_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -3528,8 +3768,12 @@
           "name": "schedules_week_bfull_time_schedule_monday_lecturer_id_lecturers_id_fk",
           "tableFrom": "schedules_week_bfull_time_schedule_monday",
           "tableTo": "lecturers",
-          "columnsFrom": ["lecturer_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "lecturer_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "set null",
           "onUpdate": "no action"
         },
@@ -3537,8 +3781,12 @@
           "name": "schedules_week_bfull_time_schedule_monday_classroom_id_classrooms_id_fk",
           "tableFrom": "schedules_week_bfull_time_schedule_monday",
           "tableTo": "classrooms",
-          "columnsFrom": ["classroom_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "classroom_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "set null",
           "onUpdate": "no action"
         },
@@ -3546,8 +3794,12 @@
           "name": "schedules_week_bfull_time_schedule_monday_parent_id_fk",
           "tableFrom": "schedules_week_bfull_time_schedule_monday",
           "tableTo": "schedules",
-          "columnsFrom": ["_parent_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "_parent_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -3698,8 +3950,12 @@
           "name": "schedules_week_bfull_time_schedule_tuesday_lecturer_id_lecturers_id_fk",
           "tableFrom": "schedules_week_bfull_time_schedule_tuesday",
           "tableTo": "lecturers",
-          "columnsFrom": ["lecturer_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "lecturer_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "set null",
           "onUpdate": "no action"
         },
@@ -3707,8 +3963,12 @@
           "name": "schedules_week_bfull_time_schedule_tuesday_classroom_id_classrooms_id_fk",
           "tableFrom": "schedules_week_bfull_time_schedule_tuesday",
           "tableTo": "classrooms",
-          "columnsFrom": ["classroom_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "classroom_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "set null",
           "onUpdate": "no action"
         },
@@ -3716,8 +3976,12 @@
           "name": "schedules_week_bfull_time_schedule_tuesday_parent_id_fk",
           "tableFrom": "schedules_week_bfull_time_schedule_tuesday",
           "tableTo": "schedules",
-          "columnsFrom": ["_parent_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "_parent_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -3868,8 +4132,12 @@
           "name": "schedules_week_bfull_time_schedule_wednesday_lecturer_id_lecturers_id_fk",
           "tableFrom": "schedules_week_bfull_time_schedule_wednesday",
           "tableTo": "lecturers",
-          "columnsFrom": ["lecturer_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "lecturer_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "set null",
           "onUpdate": "no action"
         },
@@ -3877,8 +4145,12 @@
           "name": "schedules_week_bfull_time_schedule_wednesday_classroom_id_classrooms_id_fk",
           "tableFrom": "schedules_week_bfull_time_schedule_wednesday",
           "tableTo": "classrooms",
-          "columnsFrom": ["classroom_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "classroom_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "set null",
           "onUpdate": "no action"
         },
@@ -3886,8 +4158,12 @@
           "name": "schedules_week_bfull_time_schedule_wednesday_parent_id_fk",
           "tableFrom": "schedules_week_bfull_time_schedule_wednesday",
           "tableTo": "schedules",
-          "columnsFrom": ["_parent_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "_parent_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -4038,8 +4314,12 @@
           "name": "schedules_week_bfull_time_schedule_thursday_lecturer_id_lecturers_id_fk",
           "tableFrom": "schedules_week_bfull_time_schedule_thursday",
           "tableTo": "lecturers",
-          "columnsFrom": ["lecturer_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "lecturer_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "set null",
           "onUpdate": "no action"
         },
@@ -4047,8 +4327,12 @@
           "name": "schedules_week_bfull_time_schedule_thursday_classroom_id_classrooms_id_fk",
           "tableFrom": "schedules_week_bfull_time_schedule_thursday",
           "tableTo": "classrooms",
-          "columnsFrom": ["classroom_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "classroom_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "set null",
           "onUpdate": "no action"
         },
@@ -4056,8 +4340,12 @@
           "name": "schedules_week_bfull_time_schedule_thursday_parent_id_fk",
           "tableFrom": "schedules_week_bfull_time_schedule_thursday",
           "tableTo": "schedules",
-          "columnsFrom": ["_parent_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "_parent_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -4208,8 +4496,12 @@
           "name": "schedules_week_bfull_time_schedule_friday_lecturer_id_lecturers_id_fk",
           "tableFrom": "schedules_week_bfull_time_schedule_friday",
           "tableTo": "lecturers",
-          "columnsFrom": ["lecturer_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "lecturer_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "set null",
           "onUpdate": "no action"
         },
@@ -4217,8 +4509,12 @@
           "name": "schedules_week_bfull_time_schedule_friday_classroom_id_classrooms_id_fk",
           "tableFrom": "schedules_week_bfull_time_schedule_friday",
           "tableTo": "classrooms",
-          "columnsFrom": ["classroom_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "classroom_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "set null",
           "onUpdate": "no action"
         },
@@ -4226,8 +4522,12 @@
           "name": "schedules_week_bfull_time_schedule_friday_parent_id_fk",
           "tableFrom": "schedules_week_bfull_time_schedule_friday",
           "tableTo": "schedules",
-          "columnsFrom": ["_parent_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "_parent_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -4378,8 +4678,12 @@
           "name": "schedules_week_b_part_time_schedule_saturday_lecturer_id_lecturers_id_fk",
           "tableFrom": "schedules_week_b_part_time_schedule_saturday",
           "tableTo": "lecturers",
-          "columnsFrom": ["lecturer_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "lecturer_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "set null",
           "onUpdate": "no action"
         },
@@ -4387,8 +4691,12 @@
           "name": "schedules_week_b_part_time_schedule_saturday_classroom_id_classrooms_id_fk",
           "tableFrom": "schedules_week_b_part_time_schedule_saturday",
           "tableTo": "classrooms",
-          "columnsFrom": ["classroom_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "classroom_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "set null",
           "onUpdate": "no action"
         },
@@ -4396,8 +4704,12 @@
           "name": "schedules_week_b_part_time_schedule_saturday_parent_id_fk",
           "tableFrom": "schedules_week_b_part_time_schedule_saturday",
           "tableTo": "schedules",
-          "columnsFrom": ["_parent_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "_parent_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -4548,8 +4860,12 @@
           "name": "schedules_week_b_part_time_schedule_sunday_lecturer_id_lecturers_id_fk",
           "tableFrom": "schedules_week_b_part_time_schedule_sunday",
           "tableTo": "lecturers",
-          "columnsFrom": ["lecturer_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "lecturer_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "set null",
           "onUpdate": "no action"
         },
@@ -4557,8 +4873,12 @@
           "name": "schedules_week_b_part_time_schedule_sunday_classroom_id_classrooms_id_fk",
           "tableFrom": "schedules_week_b_part_time_schedule_sunday",
           "tableTo": "classrooms",
-          "columnsFrom": ["classroom_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "classroom_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "set null",
           "onUpdate": "no action"
         },
@@ -4566,8 +4886,12 @@
           "name": "schedules_week_b_part_time_schedule_sunday_parent_id_fk",
           "tableFrom": "schedules_week_b_part_time_schedule_sunday",
           "tableTo": "schedules",
-          "columnsFrom": ["_parent_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "_parent_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -4661,8 +4985,12 @@
           "name": "schedules_course_of_study_id_courses_of_study_id_fk",
           "tableFrom": "schedules",
           "tableTo": "courses_of_study",
-          "columnsFrom": ["course_of_study_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "course_of_study_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "set null",
           "onUpdate": "no action"
         }
@@ -4750,12 +5078,16 @@
         }
       },
       "foreignKeys": {
-        "announcements_recipients_recipient_id_users_id_fk": {
-          "name": "announcements_recipients_recipient_id_users_id_fk",
+        "announcements_recipients_recipient_id_students_id_fk": {
+          "name": "announcements_recipients_recipient_id_students_id_fk",
           "tableFrom": "announcements_recipients",
-          "tableTo": "users",
-          "columnsFrom": ["recipient_id"],
-          "columnsTo": ["id"],
+          "tableTo": "students",
+          "columnsFrom": [
+            "recipient_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "set null",
           "onUpdate": "no action"
         },
@@ -4763,8 +5095,12 @@
           "name": "announcements_recipients_parent_id_fk",
           "tableFrom": "announcements_recipients",
           "tableTo": "announcements",
-          "columnsFrom": ["_parent_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "_parent_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -4785,11 +5121,12 @@
           "primaryKey": true,
           "notNull": true
         },
-        "sender_id": {
-          "name": "sender_id",
-          "type": "integer",
+        "is_broadcast": {
+          "name": "is_broadcast",
+          "type": "boolean",
           "primaryKey": false,
-          "notNull": false
+          "notNull": false,
+          "default": true
         },
         "subject": {
           "name": "subject",
@@ -4833,21 +5170,6 @@
         }
       },
       "indexes": {
-        "announcements_sender_idx": {
-          "name": "announcements_sender_idx",
-          "columns": [
-            {
-              "expression": "sender_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
         "announcements_updated_at_idx": {
           "name": "announcements_updated_at_idx",
           "columns": [
@@ -4879,17 +5201,7 @@
           "with": {}
         }
       },
-      "foreignKeys": {
-        "announcements_sender_id_users_id_fk": {
-          "name": "announcements_sender_id_users_id_fk",
-          "tableFrom": "announcements",
-          "tableTo": "users",
-          "columnsFrom": ["sender_id"],
-          "columnsTo": ["id"],
-          "onDelete": "set null",
-          "onUpdate": "no action"
-        }
-      },
+      "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {},
       "policies": {},
@@ -5314,8 +5626,12 @@
           "name": "payload_locked_documents_rels_parent_fk",
           "tableFrom": "payload_locked_documents_rels",
           "tableTo": "payload_locked_documents",
-          "columnsFrom": ["parent_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "parent_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
@@ -5323,8 +5639,12 @@
           "name": "payload_locked_documents_rels_users_fk",
           "tableFrom": "payload_locked_documents_rels",
           "tableTo": "users",
-          "columnsFrom": ["users_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "users_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
@@ -5332,8 +5652,12 @@
           "name": "payload_locked_documents_rels_images_fk",
           "tableFrom": "payload_locked_documents_rels",
           "tableTo": "images",
-          "columnsFrom": ["images_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "images_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
@@ -5341,8 +5665,12 @@
           "name": "payload_locked_documents_rels_videos_fk",
           "tableFrom": "payload_locked_documents_rels",
           "tableTo": "videos",
-          "columnsFrom": ["videos_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "videos_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
@@ -5350,8 +5678,12 @@
           "name": "payload_locked_documents_rels_universities_fk",
           "tableFrom": "payload_locked_documents_rels",
           "tableTo": "universities",
-          "columnsFrom": ["universities_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "universities_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
@@ -5359,8 +5691,12 @@
           "name": "payload_locked_documents_rels_faculties_fk",
           "tableFrom": "payload_locked_documents_rels",
           "tableTo": "faculties",
-          "columnsFrom": ["faculties_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "faculties_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
@@ -5368,8 +5704,12 @@
           "name": "payload_locked_documents_rels_classrooms_fk",
           "tableFrom": "payload_locked_documents_rels",
           "tableTo": "classrooms",
-          "columnsFrom": ["classrooms_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "classrooms_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
@@ -5377,8 +5717,12 @@
           "name": "payload_locked_documents_rels_courses_of_study_fk",
           "tableFrom": "payload_locked_documents_rels",
           "tableTo": "courses_of_study",
-          "columnsFrom": ["courses_of_study_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "courses_of_study_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
@@ -5386,8 +5730,12 @@
           "name": "payload_locked_documents_rels_lecturers_fk",
           "tableFrom": "payload_locked_documents_rels",
           "tableTo": "lecturers",
-          "columnsFrom": ["lecturers_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "lecturers_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
@@ -5395,8 +5743,12 @@
           "name": "payload_locked_documents_rels_student_profile_pictures_fk",
           "tableFrom": "payload_locked_documents_rels",
           "tableTo": "student_profile_pictures",
-          "columnsFrom": ["student_profile_pictures_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "student_profile_pictures_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
@@ -5404,8 +5756,12 @@
           "name": "payload_locked_documents_rels_students_fk",
           "tableFrom": "payload_locked_documents_rels",
           "tableTo": "students",
-          "columnsFrom": ["students_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "students_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
@@ -5413,8 +5769,12 @@
           "name": "payload_locked_documents_rels_schedules_fk",
           "tableFrom": "payload_locked_documents_rels",
           "tableTo": "schedules",
-          "columnsFrom": ["schedules_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "schedules_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
@@ -5422,8 +5782,12 @@
           "name": "payload_locked_documents_rels_announcements_fk",
           "tableFrom": "payload_locked_documents_rels",
           "tableTo": "announcements",
-          "columnsFrom": ["announcements_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "announcements_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -5648,8 +6012,12 @@
           "name": "payload_preferences_rels_parent_fk",
           "tableFrom": "payload_preferences_rels",
           "tableTo": "payload_preferences",
-          "columnsFrom": ["parent_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "parent_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
@@ -5657,8 +6025,12 @@
           "name": "payload_preferences_rels_users_fk",
           "tableFrom": "payload_preferences_rels",
           "tableTo": "users",
-          "columnsFrom": ["users_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "users_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
@@ -5666,8 +6038,12 @@
           "name": "payload_preferences_rels_students_fk",
           "tableFrom": "payload_preferences_rels",
           "tableTo": "students",
-          "columnsFrom": ["students_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "students_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -5759,32 +6135,56 @@
     "public._locales": {
       "name": "_locales",
       "schema": "public",
-      "values": ["pl", "en"]
+      "values": [
+        "pl",
+        "en"
+      ]
     },
     "public.enum_users_roles": {
       "name": "enum_users_roles",
       "schema": "public",
-      "values": ["admin", "user"]
+      "values": [
+        "admin",
+        "user"
+      ]
     },
     "public.enum_courses_of_study_course_type": {
       "name": "enum_courses_of_study_course_type",
       "schema": "public",
-      "values": ["fullTime", "partTime"]
+      "values": [
+        "fullTime",
+        "partTime"
+      ]
     },
     "public.enum_courses_of_study_level_of_study": {
       "name": "enum_courses_of_study_level_of_study",
       "schema": "public",
-      "values": ["firstDegree", "secondDegree", "uniformMaster", "postgraduate"]
+      "values": [
+        "firstDegree",
+        "secondDegree",
+        "uniformMaster",
+        "postgraduate"
+      ]
     },
     "public.enum_courses_of_study_obtained_title": {
       "name": "enum_courses_of_study_obtained_title",
       "schema": "public",
-      "values": ["engineer", "master", "doctor"]
+      "values": [
+        "engineer",
+        "master",
+        "doctor"
+      ]
     },
     "public.enum_lecturers_academic_titles": {
       "name": "enum_lecturers_academic_titles",
       "schema": "public",
-      "values": ["BSc", "MSc", "PhD", "DSc", "prof"]
+      "values": [
+        "BSc",
+        "MSc",
+        "PhD",
+        "DSc",
+        "prof"
+      ]
     },
     "public.enum_schedules_week_afull_time_schedule_monday_form": {
       "name": "enum_schedules_week_afull_time_schedule_monday_form",
@@ -6013,7 +6413,11 @@
     "public.enum_announcements_priority": {
       "name": "enum_announcements_priority",
       "schema": "public",
-      "values": ["low", "medium", "high"]
+      "values": [
+        "low",
+        "medium",
+        "high"
+      ]
     }
   },
   "schemas": {},
