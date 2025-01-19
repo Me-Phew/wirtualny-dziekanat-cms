@@ -1,7 +1,8 @@
-import { CollectionConfig } from 'payload/types';
+import { CollectionConfig } from 'payload';
 
-import { admins } from '../../access/admins';
-import { generateFacultyCode } from '../../utils/facultyCodeGenerator';
+import { admins } from '@/access/admins';
+import { generateFacultyCode } from '@/utils/facultyCodeGenerator';
+import { validateFloorNumber } from './validators';
 
 export const Classrooms: CollectionConfig = {
   slug: 'classrooms',
@@ -34,9 +35,6 @@ export const Classrooms: CollectionConfig = {
       type: 'relationship',
       relationTo: 'faculties',
       hasMany: false,
-      admin: {
-        readOnly: true,
-      },
     },
     {
       name: 'floorNumber',
@@ -46,13 +44,7 @@ export const Classrooms: CollectionConfig = {
       },
       type: 'number',
       required: true,
-      validate: (value) => {
-        if (value < 0) {
-          return 'Numer piętra nie może być ujemny';
-        }
-
-        return true;
-      },
+      validate: validateFloorNumber,
     },
     {
       name: 'roomNumber',
@@ -60,19 +52,22 @@ export const Classrooms: CollectionConfig = {
         pl: 'Numer sali',
         en: 'Room number',
       },
-      type: 'text',
+      type: 'number',
       required: true,
     },
     {
       name: 'title',
       type: 'text',
-      required: true,
       admin: {
         hidden: true,
       },
       hooks: {
         beforeChange: [
           async ({ data }) => {
+            if (!data) {
+              return data;
+            }
+
             const code = `${data.floorNumber}.${data.roomNumber}`;
 
             return `${generateFacultyCode(data.faculty?.name)} ${code}`;

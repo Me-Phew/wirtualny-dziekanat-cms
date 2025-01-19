@@ -1,5 +1,5 @@
+import { CollectionConfig } from 'payload';
 import adminsAndUser from '../../access/adminsAndUser';
-import { CollectionConfig } from 'payload/types';
 
 export const StudentProfilePictures: CollectionConfig = {
   slug: 'studentProfilePictures',
@@ -11,12 +11,14 @@ export const StudentProfilePictures: CollectionConfig = {
     group: 'Media',
   },
   upload: {
-    staticURL: '/static',
     staticDir: '../uploads/',
     mimeTypes: ['image/*'],
   },
   access: {
     read: adminsAndUser,
+    create: adminsAndUser,
+    update: adminsAndUser,
+    delete: adminsAndUser,
   },
   fields: [],
 };

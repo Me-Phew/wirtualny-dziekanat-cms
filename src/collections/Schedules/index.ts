@@ -1,4 +1,4 @@
-import { CollectionConfig } from 'payload/types';
+import { CollectionConfig } from 'payload';
 
 import { admins } from '../../access/admins';
 import { fullTimeSchedule } from './fields/fullTimeSchedule';
@@ -17,8 +17,8 @@ export const Schedules: CollectionConfig = {
     },
   },
   admin: {
-    useAsTitle: 'name',
-    defaultColumns: ['courseOfStudy'],
+    useAsTitle: 'courseOfStudy',
+    defaultColumns: ['ID', 'courseOfStudy'],
   },
   access: {
     create: admins,
@@ -29,15 +29,12 @@ export const Schedules: CollectionConfig = {
     {
       name: 'courseOfStudy',
       label: {
-        pl: 'Kierunek studiów',
+        pl: 'Tok studiów',
         en: 'Course of study',
       },
       type: 'relationship',
       relationTo: 'coursesOfStudy',
       hasMany: false,
-      admin: {
-        readOnly: true,
-      },
     },
     {
       type: 'tabs',

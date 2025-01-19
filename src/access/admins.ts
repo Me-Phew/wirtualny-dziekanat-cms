@@ -1,10 +1,12 @@
-import type { AccessArgs } from 'payload/config';
+import type { FieldAccess } from 'payload';
 
-import { checkRole } from '../access/checkRole';
-import type { User } from '../payload-types';
+import type { User } from '@/payload-types';
+import { checkRole } from './checkRole';
 
-type isAdmin = (args: AccessArgs<unknown, User>) => boolean;
+export const admins: FieldAccess<User> = ({ req: { user } }) => {
+  if (!user || !('roles' in user)) {
+    return false;
+  }
 
-export const admins: isAdmin = ({ req: { user } }) => {
   return checkRole(['admin'], user);
 };

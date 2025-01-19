@@ -1,6 +1,6 @@
-import { CollectionConfig } from 'payload/types';
+import { CollectionConfig } from 'payload';
 
-import { admins } from '../../access/admins';
+import { admins } from '@/access/admins';
 
 export const Universities: CollectionConfig = {
   slug: 'universities',
@@ -42,7 +42,6 @@ export const Universities: CollectionConfig = {
       type: 'relationship',
       relationTo: 'faculties',
       hasMany: true,
-      required: true,
     },
     {
       name: 'deanearyAddress',

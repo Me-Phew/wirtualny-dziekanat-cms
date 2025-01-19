@@ -1,6 +1,6 @@
-import { CollectionConfig } from 'payload/types';
+import { CollectionConfig } from 'payload';
 
-import { admins } from '../../access/admins';
+import { admins } from '@/access/admins';
 
 export const Faculties: CollectionConfig = {
   slug: 'faculties',
@@ -42,9 +42,6 @@ export const Faculties: CollectionConfig = {
       type: 'relationship',
       relationTo: 'universities',
       hasMany: false,
-      admin: {
-        readOnly: true,
-      },
     },
     {
       name: 'classrooms',
@@ -55,7 +52,6 @@ export const Faculties: CollectionConfig = {
       type: 'relationship',
       relationTo: 'classrooms',
       hasMany: true,
-      required: true,
     },
     {
       name: 'coursesOfStudy',
@@ -65,7 +61,6 @@ export const Faculties: CollectionConfig = {
       },
       type: 'relationship',
       relationTo: 'coursesOfStudy',
-      required: true,
       hasMany: true,
     },
     {
