@@ -27,6 +27,7 @@ export const Students: CollectionConfig = {
   // },
   auth: {
     maxLoginAttempts: 50,
+    tokenExpiration: 60 * 60 * 24 * 7, // 7 days
     // loginWithUsername: {
     //   allowEmailLogin: false,
     //   requireUsername: true,

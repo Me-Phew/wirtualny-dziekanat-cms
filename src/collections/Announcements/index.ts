@@ -19,7 +19,7 @@ export const Announcements: CollectionConfig = {
   },
   admin: {
     useAsTitle: 'subject',
-    defaultColumns: ['subject', 'content'],
+    defaultColumns: ['subject', 'priority', 'content'],
   },
   access: {
     read: anyone,
