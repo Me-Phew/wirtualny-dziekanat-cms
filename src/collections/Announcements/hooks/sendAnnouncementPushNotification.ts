@@ -94,6 +94,7 @@ export const sendAnnoucementPushNotification: CollectionAfterChangeHook =
         data: {
           type: 'announcement',
           id: doc.id.toString(),
+          click_action: 'FLUTTER_NOTIFICATION_CLICK',
         },
         android: {
           priority: doc.priority === 'high' ? 'high' : 'normal',
